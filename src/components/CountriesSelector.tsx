@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import CountriesQuery from '../api/queries/countries';
 import { useQuery } from '@apollo/react-hooks';
+import Country from './Country';
 
 const CountriesSelector = () => {
-	const [country, setCountry] = useState('Andorra');
+	const [countryCode, setCountryCode] = useState();
 	const { loading, error, data } = useQuery(CountriesQuery);
 
 	if (loading) {
@@ -16,14 +17,18 @@ const CountriesSelector = () => {
 
 	return (
 		<div>
-			<h1>{country}</h1>
-			<select value={country} onChange={e => setCountry(e.target.value)}>
+			<h1>{countryCode}</h1>
+			<select
+				value={countryCode}
+				onChange={e => setCountryCode(e.target.value)}
+			>
 				{data.countries.map(country => (
-					<option key={country.name} value={country.name}>
+					<option key={country.name} value={country.code}>
 						{country.name}
 					</option>
 				))}
 			</select>
+			{countryCode && <Country code={countryCode} />}
 		</div>
 	);
 };
