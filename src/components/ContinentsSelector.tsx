@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ContinentsQuery from '../api/queries/continents';
 import { useQuery } from '@apollo/react-hooks';
-import ContinentDetails from './ContinentDetails';
 import { makeStyles } from '@material-ui/styles';
-import { FormControl, InputLabel, Select } from '@material-ui/core';
+import { FormControl, InputLabel, Select, CircularProgress } from '@material-ui/core';
+import { IContinent } from '../interfaces/continent.interface';
 
 const useStyles = makeStyles(() => ({
     formControl: {
@@ -14,13 +14,12 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const ContinentsSelector = () => {
+const ContinentsSelector: any = ({ code, onOptionSelected }) => {
     const classes = useStyles();
-    const [continentCode, setContinentCode] = useState();
     const { loading, error, data } = useQuery(ContinentsQuery);
 
     if (loading) {
-        return <p>Loading...</p>;
+        return <CircularProgress />;
     }
 
     if (error) {
@@ -28,29 +27,25 @@ const ContinentsSelector = () => {
     }
 
     return (
-        <>
-            <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="continents">Continents</InputLabel>
-                <Select
-                    native
-                    value={continentCode}
-                    onChange={e => setContinentCode(e.target.value)}
-                    inputProps={{
-                        name: 'continents',
-                        id: 'continents',
-                    }}
-                >
-                    <option key="0" value=""></option>
-                    {data.continents.map(continent => (
-                        <option key={continent.name} value={continent.code}>
-                            {continent.name}
-                        </option>
-                    ))}
-                </Select>
-
-                {continentCode && <ContinentDetails code={continentCode} />}
-            </FormControl>
-        </>
+        <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="continents">Continents</InputLabel>
+            <Select
+                native
+                value={code}
+                onChange={e => onOptionSelected(e.target.value)}
+                inputProps={{
+                    name: 'continents',
+                    id: 'continents',
+                }}
+            >
+                <option key="0" value=""></option>
+                {data.continents.map((continent: IContinent) => (
+                    <option key={continent.name} value={continent.code}>
+                        {continent.name}
+                    </option>
+                ))}
+            </Select>
+        </FormControl>
     );
 };
 

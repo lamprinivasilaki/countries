@@ -1,7 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, Dispatch } from 'react';
 import { makeStyles } from '@material-ui/styles';
-import { FormControl, InputLabel, Select } from '@material-ui/core';
-import CountryDetails from './CountryDetails';
+import { FormControl, InputLabel, Select, CircularProgress } from '@material-ui/core';
+import Country from './Country';
+import { ICountry } from '../interfaces/country.interface';
+import { useQuery } from '@apollo/react-hooks';
+import CountriesPerContinentQuery from '../api/queries/countries_per_continent';
+
+interface PropsType {
+    continentCode: string;
+    code: string;
+    onOptionSelected: any;
+}
 
 const useStyles = makeStyles(() => ({
     formControl: {
@@ -12,32 +21,39 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const CountriesSelector = ({ countries }) => {
+const CountriesSelector: any = ({ continentCode, code, onOptionSelected }: PropsType) => {
     const classes = useStyles();
-    const [countryCode, setCountryCode] = useState();
+    const { loading, error, data } = useQuery(CountriesPerContinentQuery, {
+        variables: { continentCode },
+    });
+
+    if (loading) {
+        return <CircularProgress />;
+    }
+
+    if (error) {
+        return <p>{error.message}</p>;
+    }
 
     return (
-        <>
-            <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="countries">Countries</InputLabel>
-                <Select
-                    native
-                    value={countryCode}
-                    onChange={e => setCountryCode(e.target.value)}
-                    inputProps={{
-                        name: 'countries',
-                        id: 'countries',
-                    }}
-                >
-                    {countries.map(country => (
-                        <option key={country.code} value={country.code}>
-                            {country.name}
-                        </option>
-                    ))}
-                </Select>
-                {countryCode && <CountryDetails code={countryCode} />}
-            </FormControl>
-        </>
+        <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="countries">Countries</InputLabel>
+            <Select
+                native
+                value={code}
+                onChange={e => onOptionSelected(e.target.value)}
+                inputProps={{
+                    name: 'countries',
+                    id: 'countries',
+                }}
+            >
+                {data.continent.countries.map((country: ICountry) => (
+                    <option key={country.code} value={country.code}>
+                        {country.name}
+                    </option>
+                ))}
+            </Select>
+        </FormControl>
     );
 };
 
