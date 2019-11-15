@@ -1,60 +1,44 @@
-import React, { useState, Dispatch } from 'react';
-import { makeStyles } from '@material-ui/styles';
-import { FormControl, InputLabel, Select, CircularProgress } from '@material-ui/core';
-import Country from './Country';
-import { ICountry } from '../interfaces/country.interface';
-import { useQuery } from '@apollo/react-hooks';
-import CountriesPerContinentQuery from '../api/queries/countries_per_continent';
+import React, { FunctionComponent } from "react";
+import { CircularProgress } from "@material-ui/core";
+import { useQuery } from "@apollo/react-hooks";
+import CountriesPerContinentQuery from "../api/queries/countries_per_continent";
+import Selector from "./Selector";
 
 interface PropsType {
-    continentCode: string;
-    code: string;
-    onOptionSelected: any;
+  continentCode: string;
+  code: string;
+  onCodeSelected: any;
 }
 
-const useStyles = makeStyles(() => ({
-    formControl: {
-        minWidth: 120,
-    },
-    selectEmpty: {
-        marginTop: '12px',
-    },
-}));
+const CountriesSelector: FunctionComponent<PropsType> = ({
+  continentCode,
+  code,
+  onCodeSelected
+}) => {
+  const { loading, error, data } = useQuery(CountriesPerContinentQuery, {
+    variables: { code: continentCode }
+  });
 
-const CountriesSelector: any = ({ continentCode, code, onOptionSelected }: PropsType) => {
-    const classes = useStyles();
-    const { loading, error, data } = useQuery(CountriesPerContinentQuery, {
-        variables: { continentCode },
-    });
+  if (!data) {
+    return null;
+  }
 
-    if (loading) {
-        return <CircularProgress />;
-    }
+  if (loading) {
+    return <CircularProgress />;
+  }
 
-    if (error) {
-        return <p>{error.message}</p>;
-    }
+  if (error) {
+    return <p>{error.message}</p>;
+  }
 
-    return (
-        <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="countries">Countries</InputLabel>
-            <Select
-                native
-                value={code}
-                onChange={e => onOptionSelected(e.target.value)}
-                inputProps={{
-                    name: 'countries',
-                    id: 'countries',
-                }}
-            >
-                {data.continent.countries.map((country: ICountry) => (
-                    <option key={country.code} value={country.code}>
-                        {country.name}
-                    </option>
-                ))}
-            </Select>
-        </FormControl>
-    );
+  return (
+    <Selector
+      data={data.continent.countries}
+      text="Countries"
+      code={code}
+      onCodeSelected={onCodeSelected}
+    />
+  );
 };
 
 export default CountriesSelector;

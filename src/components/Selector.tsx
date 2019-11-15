@@ -1,30 +1,51 @@
-import React from 'react';
-import { InputLabel, Select } from '@material-ui/core';
+import React, { FunctionComponent } from "react";
+import { InputLabel, Select, FormControl } from "@material-ui/core";
+import { IContinent } from "../interfaces/continent.interface";
+import { ICountry } from "../interfaces/country.interface";
+import { makeStyles } from "@material-ui/styles";
 
-interface PropsType {}
+interface PropsType {
+  data: (IContinent | ICountry)[];
+  text: string;
+  code: string;
+  onCodeSelected: (newCode: string) => void;
+}
 
-const Selector: any = ({ code, onCodeSelected }) => {
-    return (
-        <div>
-            {/* <InputLabel htmlFor="continents">Continents</InputLabel>
-            <Select
-                native
-                value={code}
-                onChange={e => onCodeSelected(e.target.value)}
-                inputProps={{
-                    name: 'continents',
-                    id: 'continents',
-                }}
-            >
-                <option key="0" value=""></option>
-                {data.continents.map((continent: IContinent) => (
-                    <option key={continent.name} value={continent.code}>
-                        {continent.name}
-                    </option>
-                ))}
-            </Select> */}
-        </div>
-    );
+const useStyles = makeStyles(() => ({
+  formControl: {
+    margin: 5
+  }
+}));
+
+const Selector: FunctionComponent<PropsType> = ({
+  data,
+  text,
+  code,
+  onCodeSelected
+}) => {
+  const classes = useStyles();
+
+  return (
+    <FormControl className={classes.formControl}>
+      <InputLabel htmlFor={text.toLowerCase()}>{text}</InputLabel>
+      <Select
+        native
+        value={code}
+        onChange={e => onCodeSelected(e.target.value as string)}
+        inputProps={{
+          name: text.toLowerCase(),
+          id: text.toLowerCase()
+        }}
+      >
+        <option key="0" value=""></option>
+        {data.map((entity: IContinent | ICountry) => (
+          <option key={entity.name} value={entity.code}>
+            {entity.name}
+          </option>
+        ))}
+      </Select>
+    </FormControl>
+  );
 };
 
 export default Selector;

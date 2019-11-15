@@ -1,31 +1,31 @@
-import React, { memo } from 'react';
-import CountryQuery from '../api/queries/country';
-import { useQuery } from '@apollo/react-hooks';
-import Details from './Details';
-import { CircularProgress } from '@material-ui/core';
+import React, { memo, FunctionComponent } from "react";
+import CountryQuery from "../api/queries/country";
+import { useQuery } from "@apollo/react-hooks";
+import Details from "./Details";
+import { CircularProgress } from "@material-ui/core";
 
 interface PropsType {
-    code: string;
+  code: string;
 }
 
-const Country: any = ({ code }: PropsType) => {
-    const { loading, error, data } = useQuery(CountryQuery, {
-        variables: { code },
-    });
+const Country: FunctionComponent<PropsType> = ({ code }) => {
+  const { loading, error, data } = useQuery(CountryQuery, {
+    variables: { code }
+  });
 
-    if (!data) {
-        return;
-    }
+  if (!data) {
+    return null;
+  }
 
-    if (loading) {
-        return <CircularProgress />;
-    }
+  if (loading) {
+    return <CircularProgress />;
+  }
 
-    if (error) {
-        return <p>{error.message}</p>;
-    }
+  if (error) {
+    return <p>{error.message}</p>;
+  }
 
-    return <Details country={data.country}></Details>;
+  return <Details country={data.country}></Details>;
 };
 
 export default memo(Country);
