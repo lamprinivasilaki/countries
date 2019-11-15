@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import ContinentsSelector from './components/ContinentsSelector';
 import CountriesSelector from './components/CountriesSelector';
 import { Container, AppBar, Toolbar, Typography } from '@material-ui/core';
+import Dashboard from './components/Dashboard';
 
 const App = () => {
     return (
@@ -15,6 +16,7 @@ const App = () => {
                 </Toolbar>
             </AppBar>
             <Container>
+                <Route path="/dashboard" component={Dashboard} />
                 <Route path="/continents" component={ContinentsSelector} />
                 <Route path="/countries" component={CountriesSelector} />
             </Container>

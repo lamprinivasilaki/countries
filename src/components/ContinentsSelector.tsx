@@ -29,7 +29,6 @@ const ContinentsSelector = () => {
 
     return (
         <>
-            <h1>{continentCode}</h1>
             <FormControl className={classes.formControl}>
                 <InputLabel htmlFor="continents">Continents</InputLabel>
                 <Select

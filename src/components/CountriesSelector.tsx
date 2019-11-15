@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import CountriesQuery from '../api/queries/countries';
-import { useQuery } from '@apollo/react-hooks';
-import CountryDetails from './CountryDetails';
 import { makeStyles } from '@material-ui/styles';
 import { FormControl, InputLabel, Select } from '@material-ui/core';
+import CountryDetails from './CountryDetails';
 
 const useStyles = makeStyles(() => ({
     formControl: {
@@ -14,22 +12,12 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const CountriesSelector = () => {
+const CountriesSelector = ({ countries }) => {
     const classes = useStyles();
     const [countryCode, setCountryCode] = useState();
-    const { loading, error, data } = useQuery(CountriesQuery);
-
-    if (loading) {
-        return <p>Loading...</p>;
-    }
-
-    if (error) {
-        return <p>{error.message}</p>;
-    }
 
     return (
         <>
-            <h1>{countryCode}</h1>
             <FormControl className={classes.formControl}>
                 <InputLabel htmlFor="countries">Countries</InputLabel>
                 <Select
@@ -41,8 +29,8 @@ const CountriesSelector = () => {
                         id: 'countries',
                     }}
                 >
-                    {data.countries.map(country => (
-                        <option key={country.name} value={country.code}>
+                    {countries.map(country => (
+                        <option key={country.code} value={country.code}>
                             {country.name}
                         </option>
                     ))}
