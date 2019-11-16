@@ -10,7 +10,7 @@ interface PropsType {
   onCodeSelected: any;
 }
 
-const CountriesSelector: FunctionComponent<PropsType> = ({
+const CountriesPerContinent: FunctionComponent<PropsType> = ({
   continentCode,
   code,
   onCodeSelected
@@ -41,4 +41,4 @@ const CountriesSelector: FunctionComponent<PropsType> = ({
   );
 };
 
-export default CountriesSelector;
+export default CountriesPerContinent;

@@ -1,6 +1,6 @@
 import React, { memo, FunctionComponent, useState } from "react";
-import ContinentsSelector from "./ContinentsSelector";
-import CountriesSelector from "./CountriesSelector";
+import Continents from "./Continents";
+import CountriesPerContinent from "./CountriesPerContinent";
 import Country from "./Country";
 import { FormGroup } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
@@ -28,12 +28,9 @@ const Dashboard: FunctionComponent = () => {
   return (
     <>
       <FormGroup className={classes.formGroup}>
-        <ContinentsSelector
-          code={continentCode}
-          onCodeSelected={onContinentSelected}
-        />
+        <Continents code={continentCode} onCodeSelected={onContinentSelected} />
         {continentCode && (
-          <CountriesSelector
+          <CountriesPerContinent
             continentCode={continentCode}
             code={countryCode}
             onCodeSelected={onCountrySelected}

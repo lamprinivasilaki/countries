@@ -1,4 +1,4 @@
-export interface ILanguage {
-    code: string;
-    name: string;
+export interface LanguageEntity {
+  code: string;
+  name: string;
 }

@@ -1,11 +1,11 @@
 import React, { FunctionComponent } from "react";
 import { InputLabel, Select, FormControl } from "@material-ui/core";
-import { IContinent } from "../interfaces/continent.interface";
-import { ICountry } from "../interfaces/country.interface";
+import { ContinentEntity } from "../interfaces/continent.interface";
+import { CountryEntity } from "../interfaces/country.interface";
 import { makeStyles } from "@material-ui/styles";
 
 interface PropsType {
-  data: (IContinent | ICountry)[];
+  data: (ContinentEntity | CountryEntity)[];
   text: string;
   code: string;
   onCodeSelected: (newCode: string) => void;
@@ -38,7 +38,7 @@ const Selector: FunctionComponent<PropsType> = ({
         }}
       >
         <option key="0" value=""></option>
-        {data.map((entity: IContinent | ICountry) => (
+        {data.map((entity: ContinentEntity | CountryEntity) => (
           <option key={entity.name} value={entity.code}>
             {entity.name}
           </option>

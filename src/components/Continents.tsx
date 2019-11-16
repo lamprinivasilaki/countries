@@ -8,10 +8,7 @@ interface PropsType {
   code: string;
   onCodeSelected: (newCode: string) => void;
 }
-const ContinentsSelector: FunctionComponent<PropsType> = ({
-  code,
-  onCodeSelected
-}) => {
+const Continents: FunctionComponent<PropsType> = ({ code, onCodeSelected }) => {
   const { loading, error, data } = useQuery(ContinentsQuery);
 
   if (!data) {
@@ -35,4 +32,4 @@ const ContinentsSelector: FunctionComponent<PropsType> = ({
   );
 };
 
-export default ContinentsSelector;
+export default Continents;
