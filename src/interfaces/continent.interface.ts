@@ -1,4 +1,4 @@
 export interface ContinentEntity {
-  code: string;
-  name: string;
+    code: string;
+    name: string;
 }

@@ -1,4 +1,4 @@
 export interface LanguageEntity {
-  code: string;
-  name: string;
+    code: string;
+    name: string;
 }

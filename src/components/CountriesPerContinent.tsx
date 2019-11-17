@@ -1,45 +1,45 @@
-import React, { FunctionComponent } from "react";
-import { CircularProgress } from "@material-ui/core";
-import { useQuery } from "@apollo/react-hooks";
-import CountriesPerContinentQuery from "../api/queries/countries_per_continent";
-import Selector from "./Selector";
-import Alert from "./Alert";
+import React, { FunctionComponent } from 'react';
+import { CircularProgress } from '@material-ui/core';
+import { useQuery } from '@apollo/react-hooks';
+import CountriesPerContinentQuery from '../api/queries/countries_per_continent';
+import Selector from './Selector';
+import Alert from './Alert';
 
 interface PropsType {
-  continentCode: string;
-  code: string;
-  onCodeSelected: any;
+    continentCode: string;
+    code: string;
+    onCodeSelected: any;
 }
 
 const CountriesPerContinent: FunctionComponent<PropsType> = ({
-  continentCode,
-  code,
-  onCodeSelected
+    continentCode,
+    code,
+    onCodeSelected
 }) => {
-  const { loading, error, data } = useQuery(CountriesPerContinentQuery, {
-    variables: { code: continentCode }
-  });
+    const { loading, error, data } = useQuery(CountriesPerContinentQuery, {
+        variables: { code: continentCode }
+    });
 
-  if (!data) {
-    return null;
-  }
+    if (!data) {
+        return null;
+    }
 
-  if (loading) {
-    return <CircularProgress />;
-  }
+    if (loading) {
+        return <CircularProgress />;
+    }
 
-  if (error) {
-    return <Alert variant="error" message={error.message}></Alert>;
-  }
+    if (error) {
+        return <Alert variant="error" message={error.message}></Alert>;
+    }
 
-  return (
-    <Selector
-      data={data.continent.countries}
-      text="Countries"
-      code={code}
-      onCodeSelected={onCodeSelected}
-    />
-  );
+    return (
+        <Selector
+            data={data.continent.countries}
+            text="Countries"
+            code={code}
+            onCodeSelected={onCodeSelected}
+        />
+    );
 };
 
 export default CountriesPerContinent;
