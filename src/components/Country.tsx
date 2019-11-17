@@ -26,7 +26,7 @@ const Country: FunctionComponent<PropsType> = ({ code }) => {
         return <Alert variant="error" message={error.message}></Alert>;
     }
 
-    return <Details country={data.country}></Details>;
+    return <Details country={data.country} showDetails={true}></Details>;
 };
 
 export default memo(Country);

@@ -7,6 +7,7 @@ import { CountryEntity } from '../interfaces/country.interface';
 
 interface PropsType {
     country: CountryEntity;
+    showDetails: boolean;
 }
 
 const useStyles = makeStyles({
@@ -18,7 +19,10 @@ const useStyles = makeStyles({
     }
 });
 
-const Details: FunctionComponent<PropsType> = ({ country }: PropsType) => {
+const Details: FunctionComponent<PropsType> = ({
+    country,
+    showDetails
+}: PropsType) => {
     const classes = useStyles();
 
     return (
@@ -27,13 +31,20 @@ const Details: FunctionComponent<PropsType> = ({ country }: PropsType) => {
                 <Typography gutterBottom variant="h5" component="h2">
                     {country.emoji} {country.name}
                 </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                    <b>{country.name}</b> is a country located in{' '}
-                    <b>{country.continent.name}</b>.
-                    <br />
-                    The native name of the country is "<b>{country.native}</b>"
-                    and its currency is <b>{country.currency}</b>.
-                </Typography>
+                {showDetails && (
+                    <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        component="p"
+                    >
+                        <b>{country.name}</b> is a country located in{' '}
+                        <b>{country.continent.name}</b>.
+                        <br />
+                        The native name of the country is "
+                        <b>{country.native}</b>" and its currency is{' '}
+                        <b>{country.currency}</b>.
+                    </Typography>
+                )}
             </CardContent>
         </Card>
     );
