@@ -3,6 +3,7 @@ import CountryQuery from "../api/queries/country";
 import { useQuery } from "@apollo/react-hooks";
 import Details from "./Details";
 import { CircularProgress } from "@material-ui/core";
+import Alert from "./Alert";
 
 interface PropsType {
   code: string;
@@ -22,7 +23,7 @@ const Country: FunctionComponent<PropsType> = ({ code }) => {
   }
 
   if (error) {
-    return <p>{error.message}</p>;
+    return <Alert variant="error" message={error.message}></Alert>;
   }
 
   return <Details country={data.country}></Details>;

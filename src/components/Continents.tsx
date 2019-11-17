@@ -3,6 +3,7 @@ import ContinentsQuery from "../api/queries/continents";
 import { useQuery } from "@apollo/react-hooks";
 import { CircularProgress } from "@material-ui/core";
 import Selector from "./Selector";
+import Alert from "./Alert";
 
 interface PropsType {
   code: string;
@@ -19,7 +20,7 @@ const Continents: FunctionComponent<PropsType> = ({ code, onCodeSelected }) => {
   }
 
   if (error) {
-    return <p>{error.message}</p>;
+    return <Alert variant="error" message={error.message}></Alert>;
   }
 
   return (

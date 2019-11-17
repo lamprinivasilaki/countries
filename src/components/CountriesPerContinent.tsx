@@ -3,6 +3,7 @@ import { CircularProgress } from "@material-ui/core";
 import { useQuery } from "@apollo/react-hooks";
 import CountriesPerContinentQuery from "../api/queries/countries_per_continent";
 import Selector from "./Selector";
+import Alert from "./Alert";
 
 interface PropsType {
   continentCode: string;
@@ -28,7 +29,7 @@ const CountriesPerContinent: FunctionComponent<PropsType> = ({
   }
 
   if (error) {
-    return <p>{error.message}</p>;
+    return <Alert variant="error" message={error.message}></Alert>;
   }
 
   return (
