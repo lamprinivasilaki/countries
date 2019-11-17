@@ -5,6 +5,11 @@ const Countries = gql`
         countries {
             name
             code
+            emoji
+            continent {
+                name
+                code
+            }
         }
     }
 `;
