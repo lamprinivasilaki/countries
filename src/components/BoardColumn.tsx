@@ -1,110 +1,66 @@
-import React, { useState, FunctionComponent } from 'react';
-import {
-    List,
-    ListItem,
-    ListItemText,
-    ListItemSecondaryAction,
-    Typography
-} from '@material-ui/core';
-import RootRef from '@material-ui/core/RootRef';
-import {
-    DragDropContext,
-    Droppable,
-    Draggable,
-    DropResult,
-    OnDragEndResponder,
-    DraggableStyle,
-    DraggingStyle
-} from 'react-beautiful-dnd';
+import React, { FunctionComponent } from 'react';
+import { Droppable } from 'react-beautiful-dnd';
 import { CountryEntity } from '../interfaces/country.interface';
+import BoardItem from './BoardItem';
+import styled from 'styled-components';
 
-interface PropsType {
+interface Props {
+    key?: string;
+    column: any;
     items: CountryEntity[];
 }
-const getListStyle = (isDraggingOver: boolean): DraggingStyle => ({
-    width: 400,
-    background: isDraggingOver ? 'lightblue' : '#efefef'
-});
 
-const getItemStyle = (
-    isDragging: boolean,
-    style: DraggableStyle
-): DraggableStyle => ({
-    ...style,
-    ...(isDragging && {
-        background: 'rgb(235,235,235)'
-    })
-});
+interface StyleProps {
+    isDraggingOver: boolean;
+}
 
-const BoardColumn: FunctionComponent<PropsType> = ({ items }) => {
-    const [list, setList] = useState(items);
+const BoardColumnWrapper = styled.div`
+    flex: 1;
+    padding: 8px;
+    background-color: #e5eff5;
+    border-radius: 4px;
 
-    const reorder = (
-        originalList: CountryEntity[],
-        startIndex: number,
-        endIndex: number
-    ): CountryEntity[] => {
-        const updatedList: CountryEntity[] = Array.from(originalList);
-        const [removedItem] = updatedList.splice(startIndex, 1);
-        updatedList.splice(endIndex, 0, removedItem);
+    & + & {
+        margin-left: 12px;
+    }
+`;
 
-        return updatedList;
-    };
+const BoardColumnTitle = styled.h2`
+    font: 14px sans-serif;
+    margin-bottom: 12px;
+`;
 
-    const onDragEnd = (result: DropResult): OnDragEndResponder => {
-        // dropped outside the list
-        if (!result.destination) {
-            return;
-        }
-
-        setList(reorder(list, result.source.index, result.destination.index));
-    };
-
+const BoardColumnContent = styled.div<StyleProps>`
+    min-height: 20px;
+    background-color: ${props => (props.isDraggingOver ? '#aecde0' : null)};
+    border-radius: 4px;
+`;
+const BoardColumn: FunctionComponent<Props> = ({ items, column }) => {
     return (
-        <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable droppableId="droppable">
-                {(provided, snapshot) => (
-                    <RootRef rootRef={provided.innerRef}>
-                        <List style={getListStyle(snapshot.isDraggingOver)}>
-                            {list.map((item: CountryEntity, index: number) => (
-                                <Draggable
+        <>
+            <BoardColumnWrapper>
+                <BoardColumnTitle>{column.title}</BoardColumnTitle>
+
+                <Droppable droppableId={column.id}>
+                    {(provided, snapshot) => (
+                        <BoardColumnContent
+                            {...provided.droppableProps}
+                            ref={provided.innerRef}
+                            isDraggingOver={snapshot.isDraggingOver}
+                        >
+                            {items.map((item: CountryEntity, index: number) => (
+                                <BoardItem
                                     key={item.code}
-                                    draggableId={item.code}
+                                    item={item}
                                     index={index}
-                                >
-                                    {(provided, snapshot) => (
-                                        <ListItem
-                                            ContainerComponent="li"
-                                            ContainerProps={{
-                                                ref: provided.innerRef
-                                            }}
-                                            {...provided.draggableProps}
-                                            {...provided.dragHandleProps}
-                                            style={getItemStyle(
-                                                snapshot.isDragging,
-                                                provided.draggableProps.style
-                                            )}
-                                        >
-                                            <ListItemText>
-                                                <Typography
-                                                    gutterBottom
-                                                    variant="h5"
-                                                    component="h2"
-                                                >
-                                                    {item.emoji} {item.name}
-                                                </Typography>
-                                            </ListItemText>
-                                            <ListItemSecondaryAction></ListItemSecondaryAction>
-                                        </ListItem>
-                                    )}
-                                </Draggable>
+                                />
                             ))}
                             {provided.placeholder}
-                        </List>
-                    </RootRef>
-                )}
-            </Droppable>
-        </DragDropContext>
+                        </BoardColumnContent>
+                    )}
+                </Droppable>
+            </BoardColumnWrapper>
+        </>
     );
 };
 
