@@ -4,7 +4,7 @@ import {
     ListItem,
     ListItemText,
     ListItemSecondaryAction,
-    Typography,
+    Typography
 } from '@material-ui/core';
 import RootRef from '@material-ui/core/RootRef';
 import {
@@ -14,7 +14,7 @@ import {
     DropResult,
     OnDragEndResponder,
     DraggableStyle,
-    DraggingStyle,
+    DraggingStyle
 } from 'react-beautiful-dnd';
 import { CountryEntity } from '../interfaces/country.interface';
 
@@ -23,23 +23,26 @@ interface PropsType {
 }
 const getListStyle = (isDraggingOver: boolean): DraggingStyle => ({
     width: 400,
-    background: isDraggingOver ? 'lightblue' : '#efefef',
+    background: isDraggingOver ? 'lightblue' : '#efefef'
 });
 
-const getItemStyle = (isDragging: boolean, style: DraggableStyle): DraggableStyle => ({
+const getItemStyle = (
+    isDragging: boolean,
+    style: DraggableStyle
+): DraggableStyle => ({
     ...style,
     ...(isDragging && {
-        background: 'rgb(235,235,235)',
-    }),
+        background: 'rgb(235,235,235)'
+    })
 });
 
-const Column: FunctionComponent<PropsType> = ({ items }) => {
+const BoardColumn: FunctionComponent<PropsType> = ({ items }) => {
     const [list, setList] = useState(items);
 
     const reorder = (
         originalList: CountryEntity[],
         startIndex: number,
-        endIndex: number,
+        endIndex: number
     ): CountryEntity[] => {
         const updatedList: CountryEntity[] = Array.from(originalList);
         const [removedItem] = updatedList.splice(startIndex, 1);
@@ -64,16 +67,22 @@ const Column: FunctionComponent<PropsType> = ({ items }) => {
                     <RootRef rootRef={provided.innerRef}>
                         <List style={getListStyle(snapshot.isDraggingOver)}>
                             {list.map((item: CountryEntity, index: number) => (
-                                <Draggable key={item.code} draggableId={item.code} index={index}>
+                                <Draggable
+                                    key={item.code}
+                                    draggableId={item.code}
+                                    index={index}
+                                >
                                     {(provided, snapshot) => (
                                         <ListItem
                                             ContainerComponent="li"
-                                            ContainerProps={{ ref: provided.innerRef }}
+                                            ContainerProps={{
+                                                ref: provided.innerRef
+                                            }}
                                             {...provided.draggableProps}
                                             {...provided.dragHandleProps}
                                             style={getItemStyle(
                                                 snapshot.isDragging,
-                                                provided.draggableProps.style,
+                                                provided.draggableProps.style
                                             )}
                                         >
                                             <ListItemText>
@@ -99,4 +108,4 @@ const Column: FunctionComponent<PropsType> = ({ items }) => {
     );
 };
 
-export default Column;
+export default BoardColumn;

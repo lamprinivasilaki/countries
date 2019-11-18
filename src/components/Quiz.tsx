@@ -5,7 +5,7 @@ import { CircularProgress } from '@material-ui/core';
 import Alert from './Alert';
 import { CountryEntity } from '../interfaces/country.interface';
 import { getRandomCountries } from '../services/getRandomCountries';
-import Column from './Column';
+import BoardColumn from './BoardColumn';
 
 const Quiz = () => {
     const { loading, error, data } = useQuery(CountriesQuery);
@@ -22,9 +22,12 @@ const Quiz = () => {
         return <Alert variant="error" message={error.message}></Alert>;
     }
 
-    const randomCountries: CountryEntity[] = getRandomCountries(data.countries, 10);
+    const randomCountries: CountryEntity[] = getRandomCountries(
+        data.countries,
+        2
+    );
 
-    return <Column items={randomCountries} />;
+    return <BoardColumn items={randomCountries} />;
 };
 
 export default Quiz;
