@@ -1,9 +1,8 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useState, useEffect } from 'react';
 import CountriesQuery from '../api/queries/countries';
 import { useQuery } from '@apollo/react-hooks';
 import { CircularProgress, Button } from '@material-ui/core';
 import Alert from './Alert';
-import { CountryEntity } from '../interfaces/country.interface';
 import { getRandomCountries } from '../services/getRandomCountries';
 import Board from './Board';
 import { ContinentEntity } from '../interfaces/continent.interface';
@@ -18,8 +17,19 @@ interface Props {
 const Quiz: FunctionComponent<Props> = ({ continents }) => {
     const { loading, error, data } = useQuery(CountriesQuery);
     const [updatedColumns, setUpdatedColumns] = useState();
+    const [randomCountries, setRandomCountries] = useState();
+    const [boardData, setBoardData] = useState();
 
-    if (!data) {
+    useEffect(() => {
+        if (!data || !data.countries) {
+            return;
+        }
+        const randomCountries = getRandomCountries(data.countries, 4);
+        setRandomCountries(randomCountries);
+        setBoardData(getBoardData(continents, randomCountries));
+    }, [data, continents]);
+
+    if (!boardData) {
         return null;
     }
 
@@ -31,15 +41,15 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
         return <Alert variant="error" message={error.message}></Alert>;
     }
 
-    const randomCountries: CountryEntity[] = getRandomCountries(data.countries, 4);
+    const getUpdatedColumns = (updatedColumns: {
+        [id: string]: ColumnEntity;
+    }) => {
+        setUpdatedColumns(updatedColumns);
+    };
 
-    const { items, columns, columnsOrder } = getBoardData(continents, randomCountries);
-
-    const getUpdatedColumns = (updatedColumns: { [id: string]: ColumnEntity }) => {
+    const handleCheckResults = () => {
         const helloThere = checkResults(randomCountries, updatedColumns);
-
         console.log('helloThere!', helloThere);
-        // setUpdatedColumns(updatedColumns);
     };
 
     return (
@@ -49,13 +59,14 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
                     variant="contained"
                     color="primary"
                     style={{ marginTop: 20, marginBottom: 20 }}
+                    onClick={handleCheckResults}
                 >
                     Check Results
                 </Button>
                 <Board
-                    columnsOrder={columnsOrder}
-                    columns={columns}
-                    items={items}
+                    columnsOrder={boardData.columnsOrder}
+                    columns={boardData.columns}
+                    items={boardData.items}
                     onItemMoved={getUpdatedColumns}
                 />
             </div>
