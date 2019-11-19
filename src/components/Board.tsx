@@ -1,13 +1,9 @@
 import React, { useState, FunctionComponent } from 'react';
-import {
-    DragDropContext,
-    DropResult,
-    OnDragEndResponder
-} from 'react-beautiful-dnd';
+import { DragDropContext, DropResult, OnDragEndResponder } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 import BoardColumn from './BoardColumn';
 import { CountryEntity } from '../interfaces/country.interface';
-// import { initialBoardData } from './data';
+
 interface Props {
     columnsOrder: string[];
     columns: any;
@@ -29,10 +25,7 @@ const Board: FunctionComponent<Props> = ({ columnsOrder, columns, items }) => {
             return;
         }
 
-        if (
-            destination.droppableId === source.droppableId &&
-            destination.index === source.index
-        ) {
+        if (destination.droppableId === source.droppableId && destination.index === source.index) {
             return;
         }
 
@@ -45,32 +38,32 @@ const Board: FunctionComponent<Props> = ({ columnsOrder, columns, items }) => {
             newItemsIds.splice(destination.index, 0, draggableId);
             const newColumnStart = {
                 ...columnStart,
-                itemsIds: newItemsIds
+                itemsIds: newItemsIds,
             };
 
             setColumns({
                 ...newColumns,
-                [newColumnStart.id]: newColumnStart
+                [newColumnStart.id]: newColumnStart,
             });
         } else {
             const newStartItemsIds = Array.from(columnStart.itemsIds);
             newStartItemsIds.splice(source.index, 1);
             const newColumnStart = {
                 ...columnStart,
-                itemsIds: newStartItemsIds
+                itemsIds: newStartItemsIds,
             };
 
             const newFinishItemsIds = Array.from(columnFinish.itemsIds);
             newFinishItemsIds.splice(destination.index, 0, draggableId);
             const newColumnFinish = {
                 ...columnFinish,
-                itemsIds: newFinishItemsIds
+                itemsIds: newFinishItemsIds,
             };
 
             setColumns({
                 ...newColumns,
                 [newColumnStart.id]: newColumnStart,
-                [newColumnFinish.id]: newColumnFinish
+                [newColumnFinish.id]: newColumnFinish,
             });
         }
     };
@@ -81,16 +74,10 @@ const Board: FunctionComponent<Props> = ({ columnsOrder, columns, items }) => {
                 {columnsOrder.map((columnId: string) => {
                     const column = newColumns[columnId];
                     const columnItems: CountryEntity[] = column.itemsIds.map(
-                        (itemId: string) => items[itemId]
+                        (itemId: string) => items[itemId],
                     );
 
-                    return (
-                        <BoardColumn
-                            key={column.id}
-                            column={column}
-                            items={columnItems}
-                        />
-                    );
+                    return <BoardColumn key={column.id} column={column} items={columnItems} />;
                 })}
             </DragDropContext>
         </BoardElement>

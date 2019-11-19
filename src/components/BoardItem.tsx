@@ -37,7 +37,7 @@ const BoardItem: FunctionComponent<Props> = ({ item, index }) => {
                     ref={provided.innerRef}
                     isDragging={snapshot.isDragging}
                 >
-                    {item.name}
+                    {item.emoji} {item.name}
                 </BoardItemElement>
             )}
         </Draggable>

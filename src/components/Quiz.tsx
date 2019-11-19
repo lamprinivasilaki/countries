@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import CountriesQuery from '../api/queries/countries';
 import { useQuery } from '@apollo/react-hooks';
 import { CircularProgress } from '@material-ui/core';
@@ -6,9 +6,14 @@ import Alert from './Alert';
 import { CountryEntity } from '../interfaces/country.interface';
 import { getRandomCountries } from '../services/getRandomCountries';
 import Board from './Board';
-import { initialBoardData } from './data';
+import { ContinentEntity } from '../interfaces/continent.interface';
+import { getBoardData } from '../services/getBoardData';
 
-const Quiz = () => {
+interface Props {
+    continents: ContinentEntity[];
+}
+
+const Quiz: FunctionComponent<Props> = ({ continents }) => {
     const { loading, error, data } = useQuery(CountriesQuery);
 
     if (!data) {
@@ -23,18 +28,13 @@ const Quiz = () => {
         return <Alert variant="error" message={error.message}></Alert>;
     }
 
-    const randomCountries: CountryEntity[] = getRandomCountries(
-        data.countries,
-        10
-    );
+    const randomCountries: CountryEntity[] = getRandomCountries(data.countries, 10);
+
+    const { items, columns, columnsOrder } = getBoardData(continents, randomCountries);
 
     return (
         <>
-            <Board
-                columnsOrder={initialBoardData.columnsOrder}
-                columns={initialBoardData.columns}
-                items={initialBoardData.items}
-            />
+            <Board columnsOrder={columnsOrder} columns={columns} items={items} />
         </>
     );
 };
