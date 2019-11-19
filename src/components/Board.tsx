@@ -1,5 +1,9 @@
-import React, { useState, FunctionComponent } from 'react';
-import { DragDropContext, DropResult, OnDragEndResponder } from 'react-beautiful-dnd';
+import React, { useState, FunctionComponent, useEffect } from 'react';
+import {
+    DragDropContext,
+    DropResult,
+    OnDragEndResponder,
+} from 'react-beautiful-dnd';
 import styled from 'styled-components';
 import BoardColumn from './BoardColumn';
 import { CountryEntity } from '../interfaces/country.interface';
@@ -17,10 +21,17 @@ const BoardElement = styled.div`
     justify-content: space-between;
 `;
 
-const Board: FunctionComponent<Props> = ({ columnsOrder, columns, items, onItemMoved }) => {
+const Board: FunctionComponent<Props> = ({
+    columnsOrder,
+    columns,
+    items,
+    onItemMoved,
+}) => {
     const [newColumns, setColumns] = useState(columns);
 
-    onItemMoved(newColumns);
+    useEffect(() => {
+        onItemMoved(newColumns);
+    }, [newColumns, onItemMoved]);
 
     const onDragEnd = (result: DropResult): OnDragEndResponder => {
         const { source, destination, draggableId } = result;
@@ -29,7 +40,10 @@ const Board: FunctionComponent<Props> = ({ columnsOrder, columns, items, onItemM
             return;
         }
 
-        if (destination.droppableId === source.droppableId && destination.index === source.index) {
+        if (
+            destination.droppableId === source.droppableId &&
+            destination.index === source.index
+        ) {
             return;
         }
 
@@ -83,7 +97,13 @@ const Board: FunctionComponent<Props> = ({ columnsOrder, columns, items, onItemM
                         (itemId: string) => items[itemId],
                     );
 
-                    return <BoardColumn key={column.id} column={column} items={columnItems} />;
+                    return (
+                        <BoardColumn
+                            key={column.id}
+                            column={column}
+                            items={columnItems}
+                        />
+                    );
                 })}
             </DragDropContext>
         </BoardElement>
