@@ -32,9 +32,23 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
 
     const { items, columns, columnsOrder } = getBoardData(continents, randomCountries);
 
+    const getUpdatedColumns = (updatedColumns: { [id: string]: ColumnEntity }) => {
+        const helloThere = checkResults(randomCountries, updatedColumns);
+
+        console.log('helloThere!', helloThere);
+        // setUpdatedColumns(updatedColumns);
+    };
+
     return (
         <>
-            <Board columnsOrder={columnsOrder} columns={columns} items={items} />
+            <div style={{ marginTop: 30 }}>
+                <Board
+                    columnsOrder={columnsOrder}
+                    columns={columns}
+                    items={items}
+                    onItemMoved={getUpdatedColumns}
+                />
+            </div>
         </>
     );
 };

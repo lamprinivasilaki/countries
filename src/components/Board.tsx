@@ -3,11 +3,13 @@ import { DragDropContext, DropResult, OnDragEndResponder } from 'react-beautiful
 import styled from 'styled-components';
 import BoardColumn from './BoardColumn';
 import { CountryEntity } from '../interfaces/country.interface';
+import { ColumnEntity } from '../interfaces/column.interface';
 
 interface Props {
     columnsOrder: string[];
     columns: any;
     items: any;
+    onItemMoved: (updatedColumns: { [id: string]: ColumnEntity }) => void;
 }
 const BoardElement = styled.div`
     display: flex;
@@ -15,8 +17,10 @@ const BoardElement = styled.div`
     justify-content: space-between;
 `;
 
-const Board: FunctionComponent<Props> = ({ columnsOrder, columns, items }) => {
+const Board: FunctionComponent<Props> = ({ columnsOrder, columns, items, onItemMoved }) => {
     const [newColumns, setColumns] = useState(columns);
+
+    onItemMoved(newColumns);
 
     const onDragEnd = (result: DropResult): OnDragEndResponder => {
         const { source, destination, draggableId } = result;
@@ -48,6 +52,7 @@ const Board: FunctionComponent<Props> = ({ columnsOrder, columns, items }) => {
         } else {
             const newStartItemsIds = Array.from(columnStart.itemsIds);
             newStartItemsIds.splice(source.index, 1);
+
             const newColumnStart = {
                 ...columnStart,
                 itemsIds: newStartItemsIds,
@@ -55,6 +60,7 @@ const Board: FunctionComponent<Props> = ({ columnsOrder, columns, items }) => {
 
             const newFinishItemsIds = Array.from(columnFinish.itemsIds);
             newFinishItemsIds.splice(destination.index, 0, draggableId);
+
             const newColumnFinish = {
                 ...columnFinish,
                 itemsIds: newFinishItemsIds,
