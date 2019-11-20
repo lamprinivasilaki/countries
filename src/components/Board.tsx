@@ -30,6 +30,10 @@ const Board: FunctionComponent<Props> = ({
     const [newColumns, setColumns] = useState(columns);
 
     useEffect(() => {
+        setColumns(columns);
+    }, [columns]);
+
+    useEffect(() => {
         onItemMoved(newColumns);
     }, [newColumns, onItemMoved]);
 
@@ -93,9 +97,9 @@ const Board: FunctionComponent<Props> = ({
             <DragDropContext onDragEnd={onDragEnd}>
                 {columnsOrder.map((columnId: string) => {
                     const column = newColumns[columnId];
-                    const columnItems: CountryEntity[] = column.itemsIds.map(
-                        (itemId: string) => items[itemId],
-                    );
+                    const columnItems: CountryEntity[] = column.itemsIds
+                        .map((itemId: string) => items[itemId])
+                        .filter((item: CountryEntity) => item);
 
                     return (
                         <BoardColumn
