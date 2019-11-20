@@ -11,7 +11,7 @@ interface PropsType {
 
 const Country: FunctionComponent<PropsType> = ({ code }) => {
     const { loading, error, data } = useQuery(CountryQuery, {
-        variables: { code }
+        variables: { code },
     });
 
     if (!data) {

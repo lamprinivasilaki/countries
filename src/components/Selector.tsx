@@ -13,15 +13,15 @@ interface PropsType {
 
 const useStyles = makeStyles(() => ({
     formControl: {
-        margin: 5
-    }
+        margin: 5,
+    },
 }));
 
 const Selector: FunctionComponent<PropsType> = ({
     data,
     text,
     code,
-    onCodeSelected
+    onCodeSelected,
 }) => {
     const classes = useStyles();
 
@@ -34,7 +34,7 @@ const Selector: FunctionComponent<PropsType> = ({
                 onChange={e => onCodeSelected(e.target.value as string)}
                 inputProps={{
                     name: text.toLowerCase(),
-                    id: text.toLowerCase()
+                    id: text.toLowerCase(),
                 }}
             >
                 <option key="0" value=""></option>

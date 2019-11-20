@@ -2,7 +2,7 @@ import { CountryEntity } from '../interfaces/country.interface';
 
 export function getRandomCountries(
     countries: CountryEntity[],
-    count: number
+    count: number,
 ): CountryEntity[] {
     let randomCountries: CountryEntity[] = [];
 

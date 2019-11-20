@@ -14,10 +14,10 @@ interface PropsType {
 const CountriesPerContinent: FunctionComponent<PropsType> = ({
     continentCode,
     code,
-    onCodeSelected
+    onCodeSelected,
 }) => {
     const { loading, error, data } = useQuery(CountriesPerContinentQuery, {
-        variables: { code: continentCode }
+        variables: { code: continentCode },
     });
 
     if (!data) {

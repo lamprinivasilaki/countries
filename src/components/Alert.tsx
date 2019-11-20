@@ -1,4 +1,9 @@
-import React, { useState, SyntheticEvent, FunctionComponent, useEffect } from 'react';
+import React, {
+    useState,
+    SyntheticEvent,
+    FunctionComponent,
+    useEffect,
+} from 'react';
 import clsx from 'clsx';
 import { Snackbar } from '@material-ui/core';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
@@ -85,12 +90,18 @@ const Alert: FunctionComponent<PropsType> = ({
                 className={clsx(classes[variant], className)}
                 message={
                     <span className={classes.message}>
-                        <Icon className={clsx(classes.icon, classes.iconVariant)} />
+                        <Icon
+                            className={clsx(classes.icon, classes.iconVariant)}
+                        />
                         {message}
                     </span>
                 }
                 action={[
-                    <IconButton key="close" color="inherit" onClick={handleClose}>
+                    <IconButton
+                        key="close"
+                        color="inherit"
+                        onClick={handleClose}
+                    >
                         <CloseIcon className={classes.icon} />
                     </IconButton>,
                 ]}

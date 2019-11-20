@@ -12,16 +12,16 @@ interface PropsType {
 
 const useStyles = makeStyles({
     card: {
-        marginTop: 12
+        marginTop: 12,
     },
     content: {
-        padding: 20
-    }
+        padding: 20,
+    },
 });
 
 const Details: FunctionComponent<PropsType> = ({
     country,
-    showDetails
+    showDetails,
 }: PropsType) => {
     const classes = useStyles();
 

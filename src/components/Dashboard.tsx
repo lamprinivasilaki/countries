@@ -8,8 +8,8 @@ import { makeStyles } from '@material-ui/styles';
 const useStyles = makeStyles(() => ({
     formGroup: {
         margin: 12,
-        width: 400
-    }
+        width: 400,
+    },
 }));
 
 const Dashboard: FunctionComponent = () => {
