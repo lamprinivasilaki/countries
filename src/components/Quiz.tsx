@@ -19,6 +19,7 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
     const [updatedColumns, setUpdatedColumns] = useState();
     const [randomCountries, setRandomCountries] = useState();
     const [boardData, setBoardData] = useState();
+    const [results, setResults] = useState();
 
     useEffect(() => {
         if (!data || !data.countries) {
@@ -41,36 +42,42 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
         return <Alert variant="error" message={error.message}></Alert>;
     }
 
-    const getUpdatedColumns = (updatedColumns: {
-        [id: string]: ColumnEntity;
-    }) => {
+    const getUpdatedColumns = (updatedColumns: { [id: string]: ColumnEntity }) => {
         setUpdatedColumns(updatedColumns);
     };
 
     const handleCheckResults = () => {
-        const helloThere = checkResults(randomCountries, updatedColumns);
-        console.log('helloThere!', helloThere);
+        setResults(checkResults(randomCountries, updatedColumns));
     };
 
     return (
-        <>
-            <div style={{ marginTop: 30 }}>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    style={{ marginTop: 20, marginBottom: 20 }}
-                    onClick={handleCheckResults}
-                >
-                    Check Results
-                </Button>
-                <Board
-                    columnsOrder={boardData.columnsOrder}
-                    columns={boardData.columns}
-                    items={boardData.items}
-                    onItemMoved={getUpdatedColumns}
-                />
-            </div>
-        </>
+        <div style={{ marginTop: 30 }}>
+            <Button
+                variant="contained"
+                color="primary"
+                style={{ marginTop: 20, marginBottom: 20 }}
+                onClick={handleCheckResults}
+            >
+                Check Results
+            </Button>
+            <Board
+                columnsOrder={boardData.columnsOrder}
+                columns={boardData.columns}
+                items={boardData.items}
+                onItemMoved={getUpdatedColumns}
+            />
+
+            {results && (
+                <Alert
+                    variant={results.result ? 'success' : 'error'}
+                    message={results.message}
+                    position={{
+                        vertical: 'bottom',
+                        horizontal: 'right',
+                    }}
+                ></Alert>
+            )}
+        </div>
     );
 };
 

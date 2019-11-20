@@ -1,4 +1,4 @@
-import React, { useState, SyntheticEvent, FunctionComponent } from 'react';
+import React, { useState, SyntheticEvent, FunctionComponent, useEffect } from 'react';
 import clsx from 'clsx';
 import { Snackbar } from '@material-ui/core';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
@@ -15,48 +15,61 @@ interface PropsType {
     className?: string;
     message: string;
     variant: keyof typeof variantIcon;
+    position?: any;
 }
+
 const variantIcon = {
     success: CheckCircleIcon,
     warning: WarningIcon,
     error: ErrorIcon,
-    info: InfoIcon
+    info: InfoIcon,
 };
 
 const useStyles = makeStyles(() => ({
     success: {
-        backgroundColor: green[600]
+        backgroundColor: green[600],
     },
     error: {
-        backgroundColor: red[900]
+        backgroundColor: red[900],
     },
     info: {
-        backgroundColor: blue[700]
+        backgroundColor: blue[700],
     },
     warning: {
-        backgroundColor: amber[700]
+        backgroundColor: amber[700],
     },
     icon: {
-        fontSize: 20
+        fontSize: 20,
     },
     iconVariant: {
         opacity: 0.9,
-        marginRight: 12
+        marginRight: 12,
     },
     message: {
         display: 'flex',
-        alignItems: 'center'
-    }
+        alignItems: 'center',
+    },
 }));
 
 const Alert: FunctionComponent<PropsType> = ({
     className,
     message,
-    variant
+    variant,
+    position = {
+        vertical: 'bottom',
+        horizontal: 'left',
+    },
 }) => {
     const classes = useStyles();
     const Icon = variantIcon[variant];
     const [open, setOpen] = useState(true);
+
+    useEffect(() => {
+        if (!message) {
+            return;
+        }
+        setOpen(true);
+    }, [message]);
 
     const handleClose = (event?: SyntheticEvent, reason?: string) => {
         if (reason === 'clickaway') {
@@ -67,31 +80,19 @@ const Alert: FunctionComponent<PropsType> = ({
     };
 
     return (
-        <Snackbar
-            anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left'
-            }}
-            open={open}
-        >
+        <Snackbar anchorOrigin={position} open={open}>
             <SnackbarContent
                 className={clsx(classes[variant], className)}
                 message={
                     <span className={classes.message}>
-                        <Icon
-                            className={clsx(classes.icon, classes.iconVariant)}
-                        />
+                        <Icon className={clsx(classes.icon, classes.iconVariant)} />
                         {message}
                     </span>
                 }
                 action={[
-                    <IconButton
-                        key="close"
-                        color="inherit"
-                        onClick={handleClose}
-                    >
+                    <IconButton key="close" color="inherit" onClick={handleClose}>
                         <CloseIcon className={classes.icon} />
-                    </IconButton>
+                    </IconButton>,
                 ]}
             />
         </Snackbar>

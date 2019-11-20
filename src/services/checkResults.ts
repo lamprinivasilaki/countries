@@ -4,7 +4,7 @@ import { ColumnEntity } from '../interfaces/column.interface';
 export function checkResults(
     countries: CountryEntity[],
     columns: { [id: string]: ColumnEntity },
-): boolean {
+): { result: boolean; message: string } {
     let classifiedCountries: CountryEntity[] = [];
     Object.values(columns).forEach((column: ColumnEntity) => {
         const countriesPerContinent = countries.filter(
@@ -17,6 +17,6 @@ export function checkResults(
 
     return columns.unordered.itemsIds.length === 0 &&
         classifiedCountries.length === countries.length
-        ? true
-        : false;
+        ? { result: true, message: `Great! Everything's correct!` }
+        : { result: false, message: `Hmm, something is not right. Why don't you try again?` };
 }
