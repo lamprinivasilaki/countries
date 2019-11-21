@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import CountriesQuery from '../api/queries/countries';
 import { useQuery } from '@apollo/react-hooks';
-import { CircularProgress, Button, Box, Tooltip } from '@material-ui/core';
+import { CircularProgress, Button, Box } from '@material-ui/core';
 import Alert from './Alert';
 import { getRandomCountries } from '../services/getRandomCountries';
 import Board from './Board';
@@ -9,7 +9,10 @@ import { ContinentEntity } from '../interfaces/continent.interface';
 import { getBoardData } from '../services/getBoardData';
 import { ColumnEntity } from '../interfaces/column.interface';
 import { checkResults } from '../services/checkResults';
+import Helper from './Helper';
+import { Position } from '../types/position.type';
 import { updateRandomCountries } from '../services/updateRandomCountries';
+import { HelperItem } from '../interfaces/helper-item.interface';
 
 interface Props {
     continents: ContinentEntity[];
@@ -17,10 +20,17 @@ interface Props {
 
 const Quiz: FunctionComponent<Props> = ({ continents }) => {
     const { loading, error, data } = useQuery(CountriesQuery);
+    const helperPosition: Position = 'right';
+    const helperItems: HelperItem[] = [
+        { title: 'Replace one country', id: 1 },
+        { title: 'Rgdfgdfg country', id: 2 },
+        { title: 'fdgdfgdfgdfgy', id: 3 },
+    ];
     const [updatedColumns, setUpdatedColumns] = useState();
     const [randomCountries, setRandomCountries] = useState();
     const [boardData, setBoardData] = useState();
     const [results, setResults] = useState();
+    const [helperState, setHelperState] = useState(false);
 
     useEffect(() => {
         if (!data || !data.countries) {
@@ -60,22 +70,50 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
         setResults(checkResults(randomCountries, updatedColumns));
     };
 
+    const openHelper = () => {
+        setHelperState(true);
+    };
+
+    const handleHelperClose = helperState => {
+        setHelperState(helperState[helperPosition]);
+    };
+
+    const handleHelperClick = (id: number) => {
+        const help: HelperItem | undefined = helperItems.find(
+            (item: HelperItem) => item.id === id,
+        );
+
+        if (!help) {
+            return;
+        }
+
+        switch (help.id) {
+            case 1:
+                setRandomCountries(
+                    updateRandomCountries(data.countries, randomCountries, 1),
+                );
+                break;
+            case 2:
+                console.log('help case 2');
+                break;
+            case 3:
+                console.log('help case 3');
+                break;
+        }
+    };
+
     return (
         <div style={{ marginTop: 30 }}>
+            {helperState && (
+                <Helper
+                    items={helperItems}
+                    position={helperPosition}
+                    open={helperState}
+                    onHelperClosed={handleHelperClose}
+                    onHelpClicked={handleHelperClick}
+                ></Helper>
+            )}
             <Box display="flex" flexGrow={1} justifyContent="space-between">
-                <Tooltip
-                    title="Replace randomly one country with another one"
-                    placement="top-start"
-                >
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        style={{ marginTop: 20, marginBottom: 20 }}
-                        onClick={handleHelp}
-                    >
-                        Help
-                    </Button>
-                </Tooltip>
                 <Button
                     variant="contained"
                     color="primary"
@@ -83,6 +121,14 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
                     onClick={handleCheckResults}
                 >
                     Check Results
+                </Button>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    style={{ marginTop: 20, marginBottom: 20 }}
+                    onClick={openHelper}
+                >
+                    Help
                 </Button>
             </Box>
 
