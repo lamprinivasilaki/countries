@@ -9,7 +9,7 @@ import { ContinentEntity } from '../interfaces/continent.interface';
 import { getBoardData } from '../services/getBoardData';
 import { ColumnEntity } from '../interfaces/column.interface';
 import { checkResults } from '../services/checkResults';
-import { CountryEntity } from '../interfaces/country.interface';
+import { updateRandomCountries } from '../services/updateRandomCountries';
 
 interface Props {
     continents: ContinentEntity[];
@@ -58,24 +58,6 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
 
     const handleCheckResults = () => {
         setResults(checkResults(randomCountries, updatedColumns));
-    };
-
-    const handleHelp = () => {
-        const newRandomCountry: CountryEntity[] = getRandomCountries(
-            data.countries,
-            1,
-        );
-        const randomIndex: number = Math.floor(
-            Math.random() * randomCountries.length,
-        );
-        const newRandomCountries: CountryEntity[] = randomCountries
-            .slice(0, randomIndex)
-            .concat(newRandomCountry)
-            .concat(
-                randomCountries.slice(randomIndex + 1, randomCountries.length),
-            );
-
-        setRandomCountries(newRandomCountries);
     };
 
     return (
