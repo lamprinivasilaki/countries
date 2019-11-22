@@ -107,6 +107,10 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
         }
     };
 
+    const onItemSelected = (id: string) => {
+        console.log('QUIZ! onItemSelected: ', id);
+    };
+
     return (
         <div style={{ marginTop: 30 }}>
             {helperState && (
@@ -142,6 +146,7 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
                 columns={boardData.columns}
                 items={boardData.items}
                 onItemMoved={getUpdatedColumns}
+                onItemSelected={onItemSelected}
             />
 
             {results && (

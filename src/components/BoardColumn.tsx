@@ -9,6 +9,7 @@ interface Props {
     key?: string;
     column: ColumnEntity;
     items: CountryEntity[];
+    onItemSelected: (id: string) => void;
 }
 
 interface StyleProps {
@@ -36,7 +37,11 @@ const BoardColumnContent = styled.div<StyleProps>`
     background-color: ${props => (props.isDraggingOver ? '#aecde0' : null)};
     border-radius: 4px;
 `;
-const BoardColumn: FunctionComponent<Props> = ({ items, column }) => {
+const BoardColumn: FunctionComponent<Props> = ({
+    items,
+    column,
+    onItemSelected,
+}) => {
     return (
         <>
             <BoardColumnWrapper>
@@ -54,6 +59,7 @@ const BoardColumn: FunctionComponent<Props> = ({ items, column }) => {
                                     key={item.code}
                                     item={item}
                                     index={index}
+                                    onItemSelected={onItemSelected}
                                 />
                             ))}
                             {provided.placeholder}

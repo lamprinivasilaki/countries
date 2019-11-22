@@ -14,6 +14,7 @@ interface Props {
     columns: { [id: string]: ColumnEntity };
     items: CountryEntity[];
     onItemMoved: (updatedColumns: { [id: string]: ColumnEntity }) => void;
+    onItemSelected: (id: string) => void;
 }
 const BoardElement = styled.div`
     display: flex;
@@ -26,6 +27,7 @@ const Board: FunctionComponent<Props> = ({
     columns,
     items,
     onItemMoved,
+    onItemSelected,
 }) => {
     const [newColumns, setColumns] = useState(columns);
 
@@ -106,6 +108,7 @@ const Board: FunctionComponent<Props> = ({
                             key={column.id}
                             column={column}
                             items={columnItems}
+                            onItemSelected={onItemSelected}
                         />
                     );
                 })}
