@@ -1,6 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import { Container, AppBar, Toolbar, Typography, CircularProgress } from '@material-ui/core';
+import {
+    Container,
+    AppBar,
+    Toolbar,
+    Typography,
+    CircularProgress,
+} from '@material-ui/core';
 import Dashboard from './components/Dashboard';
 import { makeStyles, createStyles } from '@material-ui/styles';
 import Quiz from './components/Quiz';

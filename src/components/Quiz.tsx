@@ -66,6 +66,10 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
         setUpdatedColumns(updatedColumns);
     };
 
+    const onAlertClosed = () => {
+        setResults(undefined);
+    };
+
     const handleCheckResults = () => {
         setResults(checkResults(randomCountries, updatedColumns));
     };
@@ -147,6 +151,7 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
                         vertical: 'bottom',
                         horizontal: 'right',
                     }}
+                    onAlertClosed={onAlertClosed}
                 ></Alert>
             )}
         </div>

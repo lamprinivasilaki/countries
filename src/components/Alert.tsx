@@ -21,6 +21,7 @@ interface PropsType {
     message: string;
     variant: keyof typeof variantIcon;
     position?: any;
+    onAlertClosed?: () => void;
 }
 
 const variantIcon = {
@@ -64,6 +65,7 @@ const Alert: FunctionComponent<PropsType> = ({
         vertical: 'bottom',
         horizontal: 'left',
     },
+    onAlertClosed,
 }) => {
     const classes = useStyles();
     const Icon = variantIcon[variant];
@@ -79,6 +81,10 @@ const Alert: FunctionComponent<PropsType> = ({
     const handleClose = (event?: SyntheticEvent, reason?: string) => {
         if (reason === 'clickaway') {
             return;
+        }
+
+        if (onAlertClosed) {
+            onAlertClosed();
         }
 
         setOpen(false);
