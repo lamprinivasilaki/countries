@@ -10,13 +10,14 @@ import {
 import HelpIcon from '@material-ui/icons/Help';
 import { Position } from '../types/position.type';
 import { HelperItem } from '../interfaces/helper-item.interface';
+import { PositionState } from '../interfaces/position-state.interface';
 
 interface Props {
     items: HelperItem[];
     position: Position;
     open: boolean;
-    onHelperClosed: (state: any) => any;
-    onHelpClicked: (state: any) => any;
+    onHelperClosed: (state: PositionState) => void;
+    onHelpClicked: (id: number) => void;
 }
 
 const useStyles = makeStyles({

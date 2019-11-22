@@ -3,10 +3,11 @@ import { Droppable } from 'react-beautiful-dnd';
 import { CountryEntity } from '../interfaces/country.interface';
 import BoardItem from './BoardItem';
 import styled from 'styled-components';
+import { ColumnEntity } from '../interfaces/column.interface';
 
 interface Props {
     key?: string;
-    column: any;
+    column: ColumnEntity;
     items: CountryEntity[];
 }
 

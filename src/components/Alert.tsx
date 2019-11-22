@@ -15,12 +15,13 @@ import IconButton from '@material-ui/core/IconButton';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import WarningIcon from '@material-ui/icons/Warning';
 import { makeStyles } from '@material-ui/styles';
+import { AlertPosition } from '../interfaces/alert-position.interface';
 
 interface PropsType {
     className?: string;
     message: string;
     variant: keyof typeof variantIcon;
-    position?: any;
+    position?: AlertPosition;
     onAlertClosed?: () => void;
 }
 

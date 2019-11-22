@@ -8,7 +8,7 @@ import Alert from './Alert';
 interface PropsType {
     continentCode: string;
     code: string;
-    onCodeSelected: any;
+    onCodeSelected: (option: string) => void;
 }
 
 const CountriesPerContinent: FunctionComponent<PropsType> = ({

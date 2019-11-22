@@ -11,8 +11,8 @@ import { ColumnEntity } from '../interfaces/column.interface';
 
 interface Props {
     columnsOrder: string[];
-    columns: any;
-    items: any;
+    columns: { [id: string]: ColumnEntity };
+    items: CountryEntity[];
     onItemMoved: (updatedColumns: { [id: string]: ColumnEntity }) => void;
 }
 const BoardElement = styled.div`

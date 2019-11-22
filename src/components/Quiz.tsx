@@ -13,6 +13,7 @@ import Helper from './Helper';
 import { Position } from '../types/position.type';
 import { updateRandomCountries } from '../services/updateRandomCountries';
 import { HelperItem } from '../interfaces/helper-item.interface';
+import { PositionState } from '../interfaces/position-state.interface';
 
 interface Props {
     continents: ContinentEntity[];
@@ -78,7 +79,7 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
         setHelperState(true);
     };
 
-    const handleHelperClose = helperState => {
+    const handleHelperClose = (helperState: PositionState) => {
         setHelperState(helperState[helperPosition]);
     };
 
