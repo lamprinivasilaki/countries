@@ -14,6 +14,7 @@ import { Position } from '../types/position.type';
 import { updateRandomCountries } from '../services/updateRandomCountries';
 import { HelperItem } from '../interfaces/helper-item.interface';
 import { PositionState } from '../interfaces/position-state.interface';
+import { updateSelectedCountry } from '../services/updateSelectedCountry';
 
 interface Props {
     continents: ContinentEntity[];
@@ -108,7 +109,9 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
     };
 
     const onItemSelected = (id: string) => {
-        console.log('QUIZ! onItemSelected: ', id);
+        setRandomCountries(
+            updateSelectedCountry(data.countries, randomCountries, id, 1),
+        );
     };
 
     return (

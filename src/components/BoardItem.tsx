@@ -60,7 +60,7 @@ const BoardItem: FunctionComponent<Props> = ({
                     ref={provided.innerRef}
                     isDragging={snapshot.isDragging}
                 >
-                    <Typography>
+                    <Typography style={{ display: 'inline-block' }}>
                         {item.emoji} {item.name}
                     </Typography>
                     <IconButton onClick={handleClick}>
