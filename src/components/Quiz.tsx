@@ -41,15 +41,14 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
         }
         const randomCountries = getRandomCountries(data.countries, 4);
         setRandomCountries(randomCountries);
-        setBoardData(getBoardData(continents, randomCountries));
-    }, [data, continents]);
+    }, [data]);
 
     useEffect(() => {
         if (!continents || !randomCountries) {
             return;
         }
         setBoardData(getBoardData(continents, randomCountries));
-    }, []);
+    }, [continents, randomCountries]);
 
     useEffect(() => {
         if (!randomCountries || !updatedColumns) {
