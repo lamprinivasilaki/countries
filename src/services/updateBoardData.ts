@@ -13,6 +13,8 @@ export function updateBoardData(
     });
 
     const columns: { [id: string]: ColumnEntity } = {};
+
+    // create columns keys and empty itemsIds
     Object.keys(existingColumns).forEach((columnKey: string) => {
         columns[columnKey] = {
             id: existingColumns[columnKey].id,
@@ -25,44 +27,42 @@ export function updateBoardData(
         (country: CountryEntity) => country.code,
     );
 
-    let existingItems: string[] = [];
+    const existingItemCodes: string[] = Object.keys(existingColumns)
+        .map((columnKey: string) => existingColumns[columnKey].itemsIds)
+        .reduce((array: string[], subArray: string[]) =>
+            array.concat(subArray),
+        );
 
-    Object.keys(existingColumns).forEach((columnKey: string) => {
-        existingItems.push(...existingColumns[columnKey].itemsIds);
-    });
-
-    const intersection: string[] = existingCountryCodes.filter(x =>
-        existingItems.includes(x),
+    const countryCodesIntersection: string[] = existingCountryCodes.filter(
+        (code: string) => existingItemCodes.includes(code),
     );
 
-    Object.keys(existingColumns).forEach((columnKey: string) => {
-        intersection.forEach((itemKey: string) => {
-            if (existingColumns[columnKey].itemsIds.includes(itemKey)) {
-                columns[columnKey] = existingColumns[columnKey];
-            }
-        });
-    });
-
-    const foundOld: string | undefined = existingItems.find(
-        c => !intersection.includes(c),
+    const oldCountryCode: string | undefined = existingItemCodes.find(
+        (code: string) => !countryCodesIntersection.includes(code),
     );
-    const foundNew: string | undefined = existingCountryCodes.find(
-        c => !intersection.includes(c),
+    const newCountryCode: string | undefined = existingCountryCodes.find(
+        (code: string) => !countryCodesIntersection.includes(code),
     );
 
-    if (!foundOld || !foundNew) {
+    if (!oldCountryCode || !newCountryCode) {
         return;
     }
 
     Object.keys(existingColumns).forEach((columnKey: string) => {
-        if (existingColumns[columnKey].itemsIds.includes(foundOld)) {
+        countryCodesIntersection.forEach((itemKey: string) => {
+            if (existingColumns[columnKey].itemsIds.includes(itemKey)) {
+                columns[columnKey] = existingColumns[columnKey];
+            }
+        });
+
+        if (existingColumns[columnKey].itemsIds.includes(oldCountryCode)) {
             const index: number = existingColumns[columnKey].itemsIds.findIndex(
-                c => c === foundOld,
+                (code: string) => code === oldCountryCode,
             );
 
-            const newItems: string[] = existingColumns[columnKey].itemsIds
+            const newItemIds: string[] = existingColumns[columnKey].itemsIds
                 .slice(0, index)
-                .concat(foundNew)
+                .concat(newCountryCode)
                 .concat(
                     existingColumns[columnKey].itemsIds.slice(
                         index + 1,
@@ -72,7 +72,7 @@ export function updateBoardData(
             columns[columnKey] = {
                 id: existingColumns[columnKey].id,
                 title: existingColumns[columnKey].title,
-                itemsIds: newItems,
+                itemsIds: newItemIds,
             };
         }
     });
