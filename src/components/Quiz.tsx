@@ -15,6 +15,7 @@ import { updateRandomCountries } from '../services/updateRandomCountries';
 import { HelperItem } from '../interfaces/helper-item.interface';
 import { PositionState } from '../interfaces/position-state.interface';
 import { updateSelectedCountry } from '../services/updateSelectedCountry';
+import { updateBoardData } from '../services/updateBoardData';
 
 interface Props {
     continents: ContinentEntity[];
@@ -48,7 +49,14 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
             return;
         }
         setBoardData(getBoardData(continents, randomCountries));
-    }, [continents, randomCountries]);
+    }, []);
+
+    useEffect(() => {
+        if (!randomCountries || !updatedColumns) {
+            return;
+        }
+        setBoardData(updateBoardData(randomCountries, updatedColumns));
+    }, [randomCountries]);
 
     if (!boardData) {
         return null;
