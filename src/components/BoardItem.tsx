@@ -1,10 +1,10 @@
-import React, { FunctionComponent, useState, MouseEvent } from 'react';
+import React, { FunctionComponent } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { CountryEntity } from '../interfaces/country.interface';
 import styled from 'styled-components';
 import IconButton from '@material-ui/core/IconButton';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { Typography, Menu, MenuItem } from '@material-ui/core';
+import AutorenewIcon from '@material-ui/icons/Autorenew';
+import { Typography } from '@material-ui/core';
 
 interface Props {
     item: CountryEntity;
@@ -36,19 +36,8 @@ const BoardItem: FunctionComponent<Props> = ({
     index,
     onItemSelected,
 }) => {
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-    const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
     const selectItem = (id: string) => {
         onItemSelected(id);
-        handleClose();
     };
 
     return (
@@ -63,19 +52,9 @@ const BoardItem: FunctionComponent<Props> = ({
                     <Typography style={{ display: 'inline-block' }}>
                         {item.emoji} {item.name}
                     </Typography>
-                    <IconButton onClick={handleClick}>
-                        <MoreVertIcon></MoreVertIcon>
+                    <IconButton onClick={() => selectItem(item.code)}>
+                        <AutorenewIcon></AutorenewIcon>
                     </IconButton>
-                    <Menu
-                        anchorEl={anchorEl}
-                        keepMounted
-                        open={Boolean(anchorEl)}
-                        onClose={handleClose}
-                    >
-                        <MenuItem onClick={() => selectItem(item.code)}>
-                            Replace Country
-                        </MenuItem>
-                    </Menu>
                 </BoardItemElement>
             )}
         </Draggable>
