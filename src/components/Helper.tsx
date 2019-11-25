@@ -43,9 +43,11 @@ const Helper: FunctionComponent<Props> = ({
     });
     const [selectedHelpId, setSelectedHelpId] = useState();
 
+    let toggleDrawer: any;
+
     useEffect(() => {
         toggleDrawer(position, true);
-    }, [open, position]);
+    }, [toggleDrawer, open, position]);
 
     useEffect(() => {
         onHelperClosed(state);
@@ -58,7 +60,7 @@ const Helper: FunctionComponent<Props> = ({
         onHelpClicked(selectedHelpId);
     }, [selectedHelpId, onHelpClicked]);
 
-    const toggleDrawer = (side: Position, open: boolean) => event => {
+    toggleDrawer = (side: Position, open: boolean) => event => {
         if (
             event.type === 'keydown' &&
             (event.key === 'Tab' || event.key === 'Shift')
