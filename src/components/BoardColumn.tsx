@@ -4,8 +4,7 @@ import { CountryEntity } from '../interfaces/country.interface';
 import BoardItem from './BoardItem';
 import styled from 'styled-components';
 import { ColumnEntity } from '../interfaces/column.interface';
-import africa from '../assets/africa.png';
-import asia from '../assets/asia.png';
+import { getBoardBackground } from '../services/getBoardBackground';
 
 interface Props {
     key?: string;
@@ -34,23 +33,17 @@ const BoardColumnTitle = styled.h2`
     font: 14px sans-serif;
     margin-bottom: 12px;
 `;
-// background: ${props => {
-//     console.log('props: ', props);
-//     return `url(../assets/${props.continentCode}.png) no-repeat top center`;
-// }};
+
 const BoardColumnContent = styled.div<StyleProps>`
     min-height: 50px;
     background-color: ${props => (props.isDraggingOver ? '#aecde0' : null)};
     border-radius: 4px;
     background: ${props =>
-        `url(${
-            props.continentCode === 'AF'
-                ? africa
-                : props.continentCode === 'AS'
-                ? asia
-                : null
-        }) no-repeat top center`}};
+        `url(${getBoardBackground(
+            props.continentCode,
+        )}) no-repeat top center`}};
 `;
+
 const BoardColumn: FunctionComponent<Props> = ({
     items,
     column,
