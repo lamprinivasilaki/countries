@@ -17,6 +17,8 @@ import { PositionState } from '../interfaces/position-state.interface';
 import { updateSelectedCountry } from '../services/updateSelectedCountry';
 import { updateBoardData } from '../services/updateBoardData';
 import { CountryEntity } from '../interfaces/country.interface';
+import AutorenewIcon from '@material-ui/icons/Autorenew';
+import TouchAppIcon from '@material-ui/icons/TouchAppOutlined';
 
 interface Props {
     continents: ContinentEntity[];
@@ -161,14 +163,16 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
 
         let randomRemainingContinentCodes: string[] = remainingContinentCodes;
         for (let i = 0; i < continentsLengthAfterHelp; i++) {
-            const rand =
+            const randomContinentCode: string =
                 randomRemainingContinentCodes[
                     Math.floor(
                         Math.random() * randomRemainingContinentCodes.length,
                     )
                 ];
 
-            const idx = randomRemainingContinentCodes.indexOf(rand);
+            const idx = randomRemainingContinentCodes.indexOf(
+                randomContinentCode,
+            );
             randomRemainingContinentCodes = randomRemainingContinentCodes
                 .slice(0, idx)
                 .concat(
@@ -179,13 +183,17 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
                 );
         }
 
-        const randomRemainingContinents = randomRemainingContinentCodes.map(
-            code => continents.find(continent => continent.code === code),
-        );
+        const randomRemainingContinents = randomRemainingContinentCodes
+            .concat(continentCode)
+            .map(code => continents.find(continent => continent.code === code));
 
-        const randomRemainingContinentNames = randomRemainingContinents.map(
-            continent => (continent ? continent.name : null),
-        );
+        const randomRemainingContinentNames: (
+            | string
+            | null
+        )[] = randomRemainingContinents
+            .map(continent => (continent ? continent.name : null))
+            .sort();
+
         setPossibleContinents(randomRemainingContinentNames);
         setBoardFiftyFiftyButtonsDisabled(true);
     };
@@ -222,6 +230,7 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
                     onClick={replaceCountryHelp}
                     disabled={helpReplaceCountry}
                 >
+                    <AutorenewIcon style={{ marginRight: 7 }} />
                     Replace Country
                 </Button>
                 <Button
@@ -231,6 +240,7 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
                     onClick={fiftyFiftyHelp}
                     disabled={helpFiftyFifty}
                 >
+                    <TouchAppIcon style={{ marginRight: 7 }} />
                     50 - 50
                 </Button>
                 <Button

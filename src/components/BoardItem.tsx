@@ -4,7 +4,7 @@ import { CountryEntity } from '../interfaces/country.interface';
 import styled from 'styled-components';
 import IconButton from '@material-ui/core/IconButton';
 import AutorenewIcon from '@material-ui/icons/Autorenew';
-import CheckIcon from '@material-ui/icons/Check';
+import TouchAppIcon from '@material-ui/icons/TouchAppOutlined';
 import { Typography } from '@material-ui/core';
 
 interface Props {
@@ -72,7 +72,7 @@ const BoardItem: FunctionComponent<Props> = ({
                             onClick={() => selectItem(item.code)}
                             disabled={isRefreshButtonDisabled}
                         >
-                            <AutorenewIcon></AutorenewIcon>
+                            <AutorenewIcon />
                         </IconButton>
                     )}
                     {isFiftyFiftyHelpEnabled && (
@@ -80,7 +80,7 @@ const BoardItem: FunctionComponent<Props> = ({
                             onClick={() => fiftyFiftySelectItem(item.code)}
                             disabled={isFiftyFiftyButtonDisabled}
                         >
-                            <CheckIcon></CheckIcon>
+                            <TouchAppIcon />
                         </IconButton>
                     )}
                 </BoardItemElement>
