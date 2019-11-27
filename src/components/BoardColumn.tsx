@@ -11,6 +11,8 @@ interface Props {
     column: ColumnEntity;
     items: CountryEntity[];
     onItemSelected: (id: string) => void;
+    isReplaceCountryHelpEnabled: boolean;
+    isBoardRefreshButtonDisabled: boolean;
 }
 
 interface StyleProps {
@@ -48,6 +50,8 @@ const BoardColumn: FunctionComponent<Props> = ({
     items,
     column,
     onItemSelected,
+    isReplaceCountryHelpEnabled,
+    isBoardRefreshButtonDisabled,
 }) => {
     return (
         <>
@@ -68,6 +72,12 @@ const BoardColumn: FunctionComponent<Props> = ({
                                     item={item}
                                     index={index}
                                     onItemSelected={onItemSelected}
+                                    isReplaceCountryHelpEnabled={
+                                        isReplaceCountryHelpEnabled
+                                    }
+                                    isRefreshButtonDisabled={
+                                        isBoardRefreshButtonDisabled
+                                    }
                                 />
                             ))}
                             {provided.placeholder}

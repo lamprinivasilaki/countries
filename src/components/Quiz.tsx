@@ -34,6 +34,11 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
     const [boardData, setBoardData] = useState();
     const [results, setResults] = useState();
     const [helperState, setHelperState] = useState(false);
+    const [helpReplaceCountry, setHelpReplaceCountry] = useState(false);
+    const [
+        boardRefreshButtonsDisabled,
+        setBoardRefreshButtonsDisabled,
+    ] = useState(false);
 
     useEffect(() => {
         if (!data || !data.countries) {
@@ -119,6 +124,11 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
         setRandomCountries(
             updateSelectedCountry(data.countries, randomCountries, id, 1),
         );
+        setBoardRefreshButtonsDisabled(true);
+    };
+
+    const replaceCountryHelp = () => {
+        setHelpReplaceCountry(true);
     };
 
     return (
@@ -145,6 +155,16 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
                     variant="contained"
                     color="primary"
                     style={{ marginTop: 20, marginBottom: 20 }}
+                    onClick={replaceCountryHelp}
+                    disabled={helpReplaceCountry}
+                >
+                    Replace Country
+                </Button>
+
+                <Button
+                    variant="contained"
+                    color="primary"
+                    style={{ marginTop: 20, marginBottom: 20 }}
                     onClick={openHelper}
                 >
                     Help
@@ -157,6 +177,8 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
                 items={boardData.items}
                 onItemMoved={getUpdatedColumns}
                 onItemSelected={onItemSelected}
+                isReplaceCountryHelpEnabled={helpReplaceCountry}
+                isBoardRefreshButtonDisabled={boardRefreshButtonsDisabled}
             />
 
             {results && (

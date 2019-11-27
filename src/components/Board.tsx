@@ -15,6 +15,8 @@ interface Props {
     items: CountryEntity[];
     onItemMoved: (updatedColumns: { [id: string]: ColumnEntity }) => void;
     onItemSelected: (id: string) => void;
+    isReplaceCountryHelpEnabled: boolean;
+    isBoardRefreshButtonDisabled: boolean;
 }
 const BoardElement = styled.div`
     display: flex;
@@ -28,6 +30,8 @@ const Board: FunctionComponent<Props> = ({
     items,
     onItemMoved,
     onItemSelected,
+    isReplaceCountryHelpEnabled,
+    isBoardRefreshButtonDisabled,
 }) => {
     const [newColumns, setColumns] = useState(columns);
 
@@ -109,6 +113,12 @@ const Board: FunctionComponent<Props> = ({
                             column={column}
                             items={columnItems}
                             onItemSelected={onItemSelected}
+                            isReplaceCountryHelpEnabled={
+                                isReplaceCountryHelpEnabled
+                            }
+                            isBoardRefreshButtonDisabled={
+                                isBoardRefreshButtonDisabled
+                            }
                         />
                     );
                 })}

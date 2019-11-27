@@ -10,6 +10,8 @@ interface Props {
     item: CountryEntity;
     index: number;
     onItemSelected: (id: string) => void;
+    isReplaceCountryHelpEnabled: boolean;
+    isRefreshButtonDisabled: boolean;
 }
 
 interface StyleProps {
@@ -35,6 +37,8 @@ const BoardItem: FunctionComponent<Props> = ({
     item,
     index,
     onItemSelected,
+    isReplaceCountryHelpEnabled,
+    isRefreshButtonDisabled,
 }) => {
     const selectItem = (id: string) => {
         onItemSelected(id);
@@ -52,9 +56,14 @@ const BoardItem: FunctionComponent<Props> = ({
                     <Typography style={{ display: 'inline-block' }}>
                         {item.emoji} {item.name}
                     </Typography>
-                    <IconButton onClick={() => selectItem(item.code)}>
-                        <AutorenewIcon></AutorenewIcon>
-                    </IconButton>
+                    {isReplaceCountryHelpEnabled && (
+                        <IconButton
+                            onClick={() => selectItem(item.code)}
+                            disabled={isRefreshButtonDisabled}
+                        >
+                            <AutorenewIcon></AutorenewIcon>
+                        </IconButton>
+                    )}
                 </BoardItemElement>
             )}
         </Draggable>
