@@ -16,7 +16,7 @@ import { HelperItem } from '../interfaces/helper-item.interface';
 import { PositionState } from '../interfaces/position-state.interface';
 import { updateSelectedCountry } from '../services/updateSelectedCountry';
 import { updateBoardData } from '../services/updateBoardData';
-import { CountryEntity } from '../interfaces/country.interface';
+import { getFiftyFiftyHelp } from '../services/getFiftyFiftyHelp';
 import AutorenewIcon from '@material-ui/icons/Autorenew';
 import TouchAppIcon from '@material-ui/icons/TouchAppOutlined';
 
@@ -148,53 +148,9 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
     };
 
     const onItemSelectedForFiftyFifty = (id: string) => {
-        // get continent code
-        const continentCode: string = data.countries
-            .filter((country: CountryEntity) => country.code === id)
-            .map((country: CountryEntity) => country.continent.code)[0];
-
-        // get remaining continent codes
-        const remainingContinentCodes: string[] = continents
-            .filter(continent => continent.code !== continentCode)
-            .map(continent => continent.code);
-
-        let continentsLengthAfterHelp: number =
-            remainingContinentCodes.length / 2;
-
-        let randomRemainingContinentCodes: string[] = remainingContinentCodes;
-        for (let i = 0; i < continentsLengthAfterHelp; i++) {
-            const randomContinentCode: string =
-                randomRemainingContinentCodes[
-                    Math.floor(
-                        Math.random() * randomRemainingContinentCodes.length,
-                    )
-                ];
-
-            const idx = randomRemainingContinentCodes.indexOf(
-                randomContinentCode,
-            );
-            randomRemainingContinentCodes = randomRemainingContinentCodes
-                .slice(0, idx)
-                .concat(
-                    randomRemainingContinentCodes.slice(
-                        idx + 1,
-                        randomRemainingContinentCodes.length,
-                    ),
-                );
-        }
-
-        const randomRemainingContinents = randomRemainingContinentCodes
-            .concat(continentCode)
-            .map(code => continents.find(continent => continent.code === code));
-
-        const randomRemainingContinentNames: (
-            | string
-            | null
-        )[] = randomRemainingContinents
-            .map(continent => (continent ? continent.name : null))
-            .sort();
-
-        setPossibleContinents(randomRemainingContinentNames);
+        setPossibleContinents(
+            getFiftyFiftyHelp(id, data.countries, continents),
+        );
         setBoardFiftyFiftyButtonsDisabled(true);
     };
 
