@@ -41,9 +41,11 @@ const BoardColumnContent = styled.div<StyleProps>`
     background-color: ${props => (props.isDraggingOver ? '#aecde0' : null)};
     border-radius: 4px;
     background: ${props =>
-        `url(${getBoardBackground(
-            props.continentCode,
-        )}) no-repeat top center`}};
+        props.itemsLength === 0
+            ? `url(${getBoardBackground(
+                  props.continentCode,
+              )}) no-repeat top center`
+            : null};
 `;
 
 const BoardColumn: FunctionComponent<Props> = ({
@@ -65,6 +67,7 @@ const BoardColumn: FunctionComponent<Props> = ({
                             ref={provided.innerRef}
                             isDraggingOver={snapshot.isDraggingOver}
                             continentCode={column.id}
+                            itemsLength={items.length}
                         >
                             {items.map((item: CountryEntity, index: number) => (
                                 <BoardItem
