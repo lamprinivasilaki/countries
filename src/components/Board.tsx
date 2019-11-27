@@ -17,6 +17,9 @@ interface Props {
     onItemSelected: (id: string) => void;
     isReplaceCountryHelpEnabled: boolean;
     isBoardRefreshButtonDisabled: boolean;
+    isFiftyFiftyHelpEnabled: boolean;
+    isBoardFiftyFiftyButtonDisabled: boolean;
+    onItemSelectedForFiftyFifty: (id: string) => void;
 }
 const BoardElement = styled.div`
     display: flex;
@@ -32,6 +35,9 @@ const Board: FunctionComponent<Props> = ({
     onItemSelected,
     isReplaceCountryHelpEnabled,
     isBoardRefreshButtonDisabled,
+    isFiftyFiftyHelpEnabled,
+    isBoardFiftyFiftyButtonDisabled,
+    onItemSelectedForFiftyFifty,
 }) => {
     const [newColumns, setColumns] = useState(columns);
 
@@ -118,6 +124,13 @@ const Board: FunctionComponent<Props> = ({
                             }
                             isBoardRefreshButtonDisabled={
                                 isBoardRefreshButtonDisabled
+                            }
+                            isFiftyFiftyHelpEnabled={isFiftyFiftyHelpEnabled}
+                            isBoardFiftyFiftyButtonDisabled={
+                                isBoardFiftyFiftyButtonDisabled
+                            }
+                            onItemSelectedForFiftyFifty={
+                                onItemSelectedForFiftyFifty
                             }
                         />
                     );

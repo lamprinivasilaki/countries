@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import CountriesQuery from '../api/queries/countries';
 import { useQuery } from '@apollo/react-hooks';
-import { CircularProgress, Button, Box } from '@material-ui/core';
+import { CircularProgress, Button, Box, Typography } from '@material-ui/core';
 import Alert from './Alert';
 import { getRandomCountries } from '../services/getRandomCountries';
 import Board from './Board';
@@ -16,6 +16,7 @@ import { HelperItem } from '../interfaces/helper-item.interface';
 import { PositionState } from '../interfaces/position-state.interface';
 import { updateSelectedCountry } from '../services/updateSelectedCountry';
 import { updateBoardData } from '../services/updateBoardData';
+import { CountryEntity } from '../interfaces/country.interface';
 
 interface Props {
     continents: ContinentEntity[];
@@ -39,6 +40,15 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
         boardRefreshButtonsDisabled,
         setBoardRefreshButtonsDisabled,
     ] = useState(false);
+    const [helpFiftyFifty, setHelpFiftyFifty] = useState(false);
+    const [
+        boardFiftyFiftyButtonsDisabled,
+        setBoardFiftyFiftyButtonsDisabled,
+    ] = useState(false);
+
+    const [possibleContinents, setPossibleContinents] = useState<
+        (string | null)[]
+    >([]);
 
     useEffect(() => {
         if (!data || !data.countries) {
@@ -131,6 +141,55 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
         setHelpReplaceCountry(true);
     };
 
+    const fiftyFiftyHelp = () => {
+        setHelpFiftyFifty(true);
+    };
+
+    const onItemSelectedForFiftyFifty = (id: string) => {
+        // get continent code
+        const continentCode: string = data.countries
+            .filter((country: CountryEntity) => country.code === id)
+            .map((country: CountryEntity) => country.continent.code)[0];
+
+        // get remaining continent codes
+        const remainingContinentCodes: string[] = continents
+            .filter(continent => continent.code !== continentCode)
+            .map(continent => continent.code);
+
+        let continentsLengthAfterHelp: number =
+            remainingContinentCodes.length / 2;
+
+        let randomRemainingContinentCodes: string[] = remainingContinentCodes;
+        for (let i = 0; i < continentsLengthAfterHelp; i++) {
+            const rand =
+                randomRemainingContinentCodes[
+                    Math.floor(
+                        Math.random() * randomRemainingContinentCodes.length,
+                    )
+                ];
+
+            const idx = randomRemainingContinentCodes.indexOf(rand);
+            randomRemainingContinentCodes = randomRemainingContinentCodes
+                .slice(0, idx)
+                .concat(
+                    randomRemainingContinentCodes.slice(
+                        idx + 1,
+                        randomRemainingContinentCodes.length,
+                    ),
+                );
+        }
+
+        const randomRemainingContinents = randomRemainingContinentCodes.map(
+            code => continents.find(continent => continent.code === code),
+        );
+
+        const randomRemainingContinentNames = randomRemainingContinents.map(
+            continent => (continent ? continent.name : null),
+        );
+        setPossibleContinents(randomRemainingContinentNames);
+        setBoardFiftyFiftyButtonsDisabled(true);
+    };
+
     return (
         <div style={{ marginTop: 30 }}>
             {helperState && (
@@ -141,6 +200,11 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
                     onHelperClosed={handleHelperClose}
                     onHelpClicked={handleHelperClick}
                 ></Helper>
+            )}
+            {possibleContinents.map(
+                (continent: string | null, index: number) => (
+                    <Typography key={index}>{continent}</Typography>
+                ),
             )}
             <Box display="flex" flexGrow={1} justifyContent="space-between">
                 <Button
@@ -160,7 +224,15 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
                 >
                     Replace Country
                 </Button>
-
+                <Button
+                    variant="contained"
+                    color="primary"
+                    style={{ marginTop: 20, marginBottom: 20 }}
+                    onClick={fiftyFiftyHelp}
+                    disabled={helpFiftyFifty}
+                >
+                    50 - 50
+                </Button>
                 <Button
                     variant="contained"
                     color="primary"
@@ -179,6 +251,9 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
                 onItemSelected={onItemSelected}
                 isReplaceCountryHelpEnabled={helpReplaceCountry}
                 isBoardRefreshButtonDisabled={boardRefreshButtonsDisabled}
+                isFiftyFiftyHelpEnabled={helpFiftyFifty}
+                isBoardFiftyFiftyButtonDisabled={boardFiftyFiftyButtonsDisabled}
+                onItemSelectedForFiftyFifty={onItemSelectedForFiftyFifty}
             />
 
             {results && (

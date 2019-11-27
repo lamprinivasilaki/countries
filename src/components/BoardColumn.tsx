@@ -13,6 +13,9 @@ interface Props {
     onItemSelected: (id: string) => void;
     isReplaceCountryHelpEnabled: boolean;
     isBoardRefreshButtonDisabled: boolean;
+    isFiftyFiftyHelpEnabled: boolean;
+    isBoardFiftyFiftyButtonDisabled: boolean;
+    onItemSelectedForFiftyFifty: (id: string) => void;
 }
 
 interface StyleProps {
@@ -54,6 +57,9 @@ const BoardColumn: FunctionComponent<Props> = ({
     onItemSelected,
     isReplaceCountryHelpEnabled,
     isBoardRefreshButtonDisabled,
+    isFiftyFiftyHelpEnabled,
+    isBoardFiftyFiftyButtonDisabled,
+    onItemSelectedForFiftyFifty,
 }) => {
     return (
         <>
@@ -80,6 +86,15 @@ const BoardColumn: FunctionComponent<Props> = ({
                                     }
                                     isRefreshButtonDisabled={
                                         isBoardRefreshButtonDisabled
+                                    }
+                                    isFiftyFiftyHelpEnabled={
+                                        isFiftyFiftyHelpEnabled
+                                    }
+                                    isFiftyFiftyButtonDisabled={
+                                        isBoardFiftyFiftyButtonDisabled
+                                    }
+                                    onItemSelectedForFiftyFifty={
+                                        onItemSelectedForFiftyFifty
                                     }
                                 />
                             ))}

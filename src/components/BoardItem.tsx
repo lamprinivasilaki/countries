@@ -4,6 +4,7 @@ import { CountryEntity } from '../interfaces/country.interface';
 import styled from 'styled-components';
 import IconButton from '@material-ui/core/IconButton';
 import AutorenewIcon from '@material-ui/icons/Autorenew';
+import CheckIcon from '@material-ui/icons/Check';
 import { Typography } from '@material-ui/core';
 
 interface Props {
@@ -12,6 +13,9 @@ interface Props {
     onItemSelected: (id: string) => void;
     isReplaceCountryHelpEnabled: boolean;
     isRefreshButtonDisabled: boolean;
+    isFiftyFiftyHelpEnabled: boolean;
+    isFiftyFiftyButtonDisabled: boolean;
+    onItemSelectedForFiftyFifty: (id: string) => void;
 }
 
 interface StyleProps {
@@ -39,9 +43,16 @@ const BoardItem: FunctionComponent<Props> = ({
     onItemSelected,
     isReplaceCountryHelpEnabled,
     isRefreshButtonDisabled,
+    isFiftyFiftyHelpEnabled,
+    isFiftyFiftyButtonDisabled,
+    onItemSelectedForFiftyFifty,
 }) => {
     const selectItem = (id: string) => {
         onItemSelected(id);
+    };
+
+    const fiftyFiftySelectItem = (id: string) => {
+        onItemSelectedForFiftyFifty(id);
     };
 
     return (
@@ -62,6 +73,14 @@ const BoardItem: FunctionComponent<Props> = ({
                             disabled={isRefreshButtonDisabled}
                         >
                             <AutorenewIcon></AutorenewIcon>
+                        </IconButton>
+                    )}
+                    {isFiftyFiftyHelpEnabled && (
+                        <IconButton
+                            onClick={() => fiftyFiftySelectItem(item.code)}
+                            disabled={isFiftyFiftyButtonDisabled}
+                        >
+                            <CheckIcon></CheckIcon>
                         </IconButton>
                     )}
                 </BoardItemElement>
