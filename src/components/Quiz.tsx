@@ -9,11 +9,6 @@ import { ContinentEntity } from '../interfaces/continent.interface';
 import { getBoardData } from '../services/getBoardData';
 import { ColumnEntity } from '../interfaces/column.interface';
 import { checkResults } from '../services/checkResults';
-import Helper from './Helper';
-import { Position } from '../types/position.type';
-import { updateRandomCountries } from '../services/updateRandomCountries';
-import { HelperItem } from '../interfaces/helper-item.interface';
-import { PositionState } from '../interfaces/position-state.interface';
 import { updateSelectedCountry } from '../services/updateSelectedCountry';
 import { updateBoardData } from '../services/updateBoardData';
 import { getFiftyFiftyHelp } from '../services/getFiftyFiftyHelp';
@@ -26,17 +21,10 @@ interface Props {
 
 const Quiz: FunctionComponent<Props> = ({ continents }) => {
     const { loading, error, data } = useQuery(CountriesQuery);
-    const helperPosition: Position = 'right';
-    const helperItems: HelperItem[] = [
-        { title: 'Replace one country', id: 1 },
-        { title: 'Rgdfgdfg country', id: 2 },
-        { title: 'fdgdfgdfgdfgy', id: 3 },
-    ];
     const [updatedColumns, setUpdatedColumns] = useState();
     const [randomCountries, setRandomCountries] = useState();
     const [boardData, setBoardData] = useState();
     const [results, setResults] = useState();
-    const [helperState, setHelperState] = useState(false);
     const [helpReplaceCountry, setHelpReplaceCountry] = useState(false);
     const [
         boardRefreshButtonsDisabled,
@@ -100,38 +88,6 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
         setResults(checkResults(randomCountries, updatedColumns));
     };
 
-    const openHelper = () => {
-        setHelperState(true);
-    };
-
-    const handleHelperClose = (helperState: PositionState) => {
-        setHelperState(helperState[helperPosition]);
-    };
-
-    const handleHelperClick = (id: number) => {
-        const help: HelperItem | undefined = helperItems.find(
-            (item: HelperItem) => item.id === id,
-        );
-
-        if (!help) {
-            return;
-        }
-
-        switch (help.id) {
-            case 1:
-                setRandomCountries(
-                    updateRandomCountries(data.countries, randomCountries, 1),
-                );
-                break;
-            case 2:
-                console.log('help case 2');
-                break;
-            case 3:
-                console.log('help case 3');
-                break;
-        }
-    };
-
     const onItemSelected = (id: string) => {
         setRandomCountries(
             updateSelectedCountry(data.countries, randomCountries, id, 1),
@@ -156,15 +112,6 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
 
     return (
         <div style={{ marginTop: 30 }}>
-            {helperState && (
-                <Helper
-                    items={helperItems}
-                    position={helperPosition}
-                    open={helperState}
-                    onHelperClosed={handleHelperClose}
-                    onHelpClicked={handleHelperClick}
-                ></Helper>
-            )}
             {possibleContinents.map(
                 (continent: string | null, index: number) => (
                     <Typography key={index}>{continent}</Typography>
@@ -198,14 +145,6 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
                 >
                     <TouchAppIcon style={{ marginRight: 7 }} />
                     50 - 50
-                </Button>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    style={{ marginTop: 20, marginBottom: 20 }}
-                    onClick={openHelper}
-                >
-                    Help
                 </Button>
             </Box>
 
