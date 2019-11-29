@@ -10,12 +10,11 @@ interface Props {
     key?: string;
     column: ColumnEntity;
     items: CountryEntity[];
-    onItemSelected: (id: string) => void;
+    onItemSelected: (id: string, help: string) => void;
     isReplaceCountryHelpEnabled: boolean;
     isBoardRefreshButtonDisabled: boolean;
     isFiftyFiftyHelpEnabled: boolean;
     isBoardFiftyFiftyButtonDisabled: boolean;
-    onItemSelectedForFiftyFifty: (id: string) => void;
 }
 
 interface StyleProps {
@@ -59,7 +58,6 @@ const BoardColumn: FunctionComponent<Props> = ({
     isBoardRefreshButtonDisabled,
     isFiftyFiftyHelpEnabled,
     isBoardFiftyFiftyButtonDisabled,
-    onItemSelectedForFiftyFifty,
 }) => {
     return (
         <>
@@ -92,9 +90,6 @@ const BoardColumn: FunctionComponent<Props> = ({
                                     }
                                     isFiftyFiftyButtonDisabled={
                                         isBoardFiftyFiftyButtonDisabled
-                                    }
-                                    onItemSelectedForFiftyFifty={
-                                        onItemSelectedForFiftyFifty
                                     }
                                 />
                             ))}

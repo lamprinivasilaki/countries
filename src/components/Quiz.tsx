@@ -88,11 +88,27 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
         setResults(checkResults(randomCountries, updatedColumns));
     };
 
-    const onItemSelected = (id: string) => {
-        setRandomCountries(
-            updateSelectedCountry(data.countries, randomCountries, id, 1),
-        );
-        setBoardRefreshButtonsDisabled(true);
+    const onItemSelected = (id: string, help: string) => {
+        switch (help) {
+            case 'replace':
+                setRandomCountries(
+                    updateSelectedCountry(
+                        data.countries,
+                        randomCountries,
+                        id,
+                        1,
+                    ),
+                );
+                setBoardRefreshButtonsDisabled(true);
+                break;
+
+            case 'fifty-fifty':
+                setPossibleContinents(
+                    getFiftyFiftyHelp(id, data.countries, continents),
+                );
+                setBoardFiftyFiftyButtonsDisabled(true);
+                break;
+        }
     };
 
     const replaceCountryHelp = () => {
@@ -101,13 +117,6 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
 
     const fiftyFiftyHelp = () => {
         setHelpFiftyFifty(true);
-    };
-
-    const onItemSelectedForFiftyFifty = (id: string) => {
-        setPossibleContinents(
-            getFiftyFiftyHelp(id, data.countries, continents),
-        );
-        setBoardFiftyFiftyButtonsDisabled(true);
     };
 
     return (
@@ -158,7 +167,6 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
                 isBoardRefreshButtonDisabled={boardRefreshButtonsDisabled}
                 isFiftyFiftyHelpEnabled={helpFiftyFifty}
                 isBoardFiftyFiftyButtonDisabled={boardFiftyFiftyButtonsDisabled}
-                onItemSelectedForFiftyFifty={onItemSelectedForFiftyFifty}
             />
 
             {results && (

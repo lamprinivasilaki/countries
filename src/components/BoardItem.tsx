@@ -10,12 +10,11 @@ import { Typography } from '@material-ui/core';
 interface Props {
     item: CountryEntity;
     index: number;
-    onItemSelected: (id: string) => void;
+    onItemSelected: (id: string, help: string) => void;
     isReplaceCountryHelpEnabled: boolean;
     isRefreshButtonDisabled: boolean;
     isFiftyFiftyHelpEnabled: boolean;
     isFiftyFiftyButtonDisabled: boolean;
-    onItemSelectedForFiftyFifty: (id: string) => void;
 }
 
 interface StyleProps {
@@ -45,14 +44,9 @@ const BoardItem: FunctionComponent<Props> = ({
     isRefreshButtonDisabled,
     isFiftyFiftyHelpEnabled,
     isFiftyFiftyButtonDisabled,
-    onItemSelectedForFiftyFifty,
 }) => {
-    const selectItem = (id: string) => {
-        onItemSelected(id);
-    };
-
-    const fiftyFiftySelectItem = (id: string) => {
-        onItemSelectedForFiftyFifty(id);
+    const selectItem = (id: string, help: string) => {
+        onItemSelected(id, help);
     };
 
     return (
@@ -69,7 +63,7 @@ const BoardItem: FunctionComponent<Props> = ({
                     </Typography>
                     {isReplaceCountryHelpEnabled && (
                         <IconButton
-                            onClick={() => selectItem(item.code)}
+                            onClick={() => selectItem(item.code, 'replace')}
                             disabled={isRefreshButtonDisabled}
                         >
                             <AutorenewIcon />
@@ -77,7 +71,7 @@ const BoardItem: FunctionComponent<Props> = ({
                     )}
                     {isFiftyFiftyHelpEnabled && (
                         <IconButton
-                            onClick={() => fiftyFiftySelectItem(item.code)}
+                            onClick={() => selectItem(item.code, 'fifty-fifty')}
                             disabled={isFiftyFiftyButtonDisabled}
                         >
                             <TouchAppIcon />
