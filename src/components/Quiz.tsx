@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import CountriesQuery from '../api/queries/countries';
 import { useQuery } from '@apollo/react-hooks';
-import { CircularProgress, Button, Box, Typography } from '@material-ui/core';
+import { CircularProgress, Button, Box } from '@material-ui/core';
 import Alert from './Alert';
 import { getRandomCountries } from '../services/getRandomCountries';
 import Board from './Board';
@@ -14,6 +14,7 @@ import { updateBoardData } from '../services/updateBoardData';
 import { getFiftyFiftyHelp } from '../services/getFiftyFiftyHelp';
 import AutorenewIcon from '@material-ui/icons/Autorenew';
 import TouchAppIcon from '@material-ui/icons/TouchAppOutlined';
+import PossibleContinentsDialog from './PossibleContinentsDialog';
 
 interface Props {
     continents: ContinentEntity[];
@@ -35,10 +36,10 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
         boardFiftyFiftyButtonsDisabled,
         setBoardFiftyFiftyButtonsDisabled,
     ] = useState(false);
-
     const [possibleContinents, setPossibleContinents] = useState<
         (string | null)[]
     >([]);
+    const [dialogState, setDialogState] = React.useState(false);
 
     useEffect(() => {
         if (!data || !data.countries) {
@@ -107,6 +108,7 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
                     getFiftyFiftyHelp(id, data.countries, continents),
                 );
                 setBoardFiftyFiftyButtonsDisabled(true);
+                openDialog();
                 break;
         }
     };
@@ -119,13 +121,24 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
         setHelpFiftyFifty(true);
     };
 
+    const openDialog = () => {
+        setDialogState(true);
+    };
+
+    const handleDialogClose = (dialogState: boolean) => {
+        setDialogState(dialogState);
+    };
+
     return (
         <div style={{ marginTop: 30 }}>
-            {possibleContinents.map(
-                (continent: string | null, index: number) => (
-                    <Typography key={index}>{continent}</Typography>
-                ),
+            {dialogState && (
+                <PossibleContinentsDialog
+                    continents={possibleContinents}
+                    isOpen={dialogState}
+                    onDialogClosed={handleDialogClose}
+                ></PossibleContinentsDialog>
             )}
+
             <Box display="flex" flexGrow={1} justifyContent="space-between">
                 <Button
                     variant="contained"
