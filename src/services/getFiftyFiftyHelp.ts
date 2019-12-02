@@ -19,7 +19,8 @@ export function getFiftyFiftyHelp(
         .map((continent: ContinentEntity) => continent.code);
 
     // get the number of the element to be removed
-    let continentsLengthAfterHelp: number = remainingContinentCodes.length / 2;
+    let continentsLengthAfterHelp: number =
+        remainingContinentCodes.length / 2 + 1;
     let randomRemainingContinentCodes: string[] = remainingContinentCodes;
 
     // remove random continents from the initial array
