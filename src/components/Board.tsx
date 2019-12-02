@@ -42,6 +42,9 @@ const Board: FunctionComponent<Props> = ({
     selectedCountryCode,
 }) => {
     const [newColumns, setColumns] = useState(columns);
+    const [highlightedColumns, highlightColumns] = useState<{
+        [id: string]: ColumnEntity;
+    }>({});
 
     useEffect(() => {
         setColumns(columns);
@@ -53,6 +56,7 @@ const Board: FunctionComponent<Props> = ({
 
     const onDragEnd = (result: DropResult): OnDragEndResponder => {
         const { source, destination, draggableId } = result;
+        highlightColumns({});
 
         if (!destination) {
             return;
@@ -106,9 +110,23 @@ const Board: FunctionComponent<Props> = ({
         }
     };
 
+    const onDragStart = (result: DropResult): OnDragEndResponder => {
+        const { draggableId } = result;
+
+        if (fiftyFiftyHints.length > 0 && selectedCountryCode === draggableId) {
+            const highlightedColumns: { [id: string]: ColumnEntity } = {};
+            for (const [key, value] of Object.entries(newColumns)) {
+                if (fiftyFiftyHints.includes(value.title)) {
+                    highlightedColumns[key] = value;
+                }
+            }
+            highlightColumns(highlightedColumns);
+        }
+    };
+
     return (
         <BoardElement>
-            <DragDropContext onDragEnd={onDragEnd}>
+            <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
                 {columnsOrder.map((columnId: string) => {
                     const column = newColumns[columnId];
                     const columnItems: CountryEntity[] = column.itemsIds
@@ -133,6 +151,7 @@ const Board: FunctionComponent<Props> = ({
                             }
                             fiftyFiftyHints={fiftyFiftyHints}
                             selectedCountryCode={selectedCountryCode}
+                            highlightedColumns={highlightedColumns}
                         />
                     );
                 })}

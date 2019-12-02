@@ -17,6 +17,7 @@ interface Props {
     isBoardFiftyFiftyButtonDisabled: boolean;
     fiftyFiftyHints: (string | null)[];
     selectedCountryCode: string;
+    highlightedColumns: { [id: string]: ColumnEntity };
 }
 
 interface StyleProps {
@@ -29,8 +30,11 @@ const BoardColumnWrapper = styled.div`
     padding: 8px;
     background-color: #e5eff5;
     border-radius: 4px;
-
-    & + & {
+    border: ${props =>
+            Object.keys(props.highlightedColumns).includes(props.column.id)
+                ? '3px solid green'
+                : 'none'}
+        & + & {
         margin-left: 12px;
     }
 `;
@@ -62,10 +66,14 @@ const BoardColumn: FunctionComponent<Props> = ({
     isBoardFiftyFiftyButtonDisabled,
     fiftyFiftyHints,
     selectedCountryCode,
+    highlightedColumns,
 }) => {
     return (
         <>
-            <BoardColumnWrapper>
+            <BoardColumnWrapper
+                highlightedColumns={highlightedColumns}
+                column={column}
+            >
                 <BoardColumnTitle>{column.title}</BoardColumnTitle>
 
                 <Droppable droppableId={column.id}>
