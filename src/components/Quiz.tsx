@@ -40,6 +40,10 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
         (string | null)[]
     >([]);
     const [dialogState, setDialogState] = React.useState(false);
+    const [
+        selectedFiftyFiftyCountryCode,
+        setSelectedFiftyFiftyCountryCode,
+    ] = React.useState();
 
     useEffect(() => {
         if (!data || !data.countries) {
@@ -104,10 +108,15 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
                 break;
 
             case 'fifty-fifty':
+                setSelectedFiftyFiftyCountryCode(id);
                 setPossibleContinents(
                     getFiftyFiftyHelp(id, data.countries, continents),
                 );
                 setBoardFiftyFiftyButtonsDisabled(true);
+                openDialog();
+                break;
+
+            case 'hint':
                 openDialog();
                 break;
         }
@@ -180,6 +189,8 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
                 isBoardRefreshButtonDisabled={boardRefreshButtonsDisabled}
                 isFiftyFiftyHelpEnabled={helpFiftyFifty}
                 isBoardFiftyFiftyButtonDisabled={boardFiftyFiftyButtonsDisabled}
+                fiftyFiftyHints={possibleContinents}
+                selectedCountryCode={selectedFiftyFiftyCountryCode}
             />
 
             {results && (

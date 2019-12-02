@@ -19,6 +19,8 @@ interface Props {
     isBoardRefreshButtonDisabled: boolean;
     isFiftyFiftyHelpEnabled: boolean;
     isBoardFiftyFiftyButtonDisabled: boolean;
+    fiftyFiftyHints: (string | null)[];
+    selectedCountryCode: string;
 }
 const BoardElement = styled.div`
     display: flex;
@@ -36,6 +38,8 @@ const Board: FunctionComponent<Props> = ({
     isBoardRefreshButtonDisabled,
     isFiftyFiftyHelpEnabled,
     isBoardFiftyFiftyButtonDisabled,
+    fiftyFiftyHints,
+    selectedCountryCode,
 }) => {
     const [newColumns, setColumns] = useState(columns);
 
@@ -127,6 +131,8 @@ const Board: FunctionComponent<Props> = ({
                             isBoardFiftyFiftyButtonDisabled={
                                 isBoardFiftyFiftyButtonDisabled
                             }
+                            fiftyFiftyHints={fiftyFiftyHints}
+                            selectedCountryCode={selectedCountryCode}
                         />
                     );
                 })}

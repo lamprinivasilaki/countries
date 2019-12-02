@@ -15,6 +15,8 @@ interface Props {
     isBoardRefreshButtonDisabled: boolean;
     isFiftyFiftyHelpEnabled: boolean;
     isBoardFiftyFiftyButtonDisabled: boolean;
+    fiftyFiftyHints: (string | null)[];
+    selectedCountryCode: string;
 }
 
 interface StyleProps {
@@ -58,6 +60,8 @@ const BoardColumn: FunctionComponent<Props> = ({
     isBoardRefreshButtonDisabled,
     isFiftyFiftyHelpEnabled,
     isBoardFiftyFiftyButtonDisabled,
+    fiftyFiftyHints,
+    selectedCountryCode,
 }) => {
     return (
         <>
@@ -91,6 +95,8 @@ const BoardColumn: FunctionComponent<Props> = ({
                                     isFiftyFiftyButtonDisabled={
                                         isBoardFiftyFiftyButtonDisabled
                                     }
+                                    fiftyFiftyHints={fiftyFiftyHints}
+                                    selectedCountryCode={selectedCountryCode}
                                 />
                             ))}
                             {provided.placeholder}

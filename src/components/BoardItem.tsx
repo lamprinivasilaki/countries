@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import IconButton from '@material-ui/core/IconButton';
 import AutorenewIcon from '@material-ui/icons/Autorenew';
 import TouchAppIcon from '@material-ui/icons/TouchAppOutlined';
+import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects';
 import { Typography } from '@material-ui/core';
 
 interface Props {
@@ -15,6 +16,8 @@ interface Props {
     isRefreshButtonDisabled: boolean;
     isFiftyFiftyHelpEnabled: boolean;
     isFiftyFiftyButtonDisabled: boolean;
+    fiftyFiftyHints: (string | null)[];
+    selectedCountryCode: string;
 }
 
 interface StyleProps {
@@ -44,6 +47,8 @@ const BoardItem: FunctionComponent<Props> = ({
     isRefreshButtonDisabled,
     isFiftyFiftyHelpEnabled,
     isFiftyFiftyButtonDisabled,
+    fiftyFiftyHints,
+    selectedCountryCode,
 }) => {
     const selectItem = (id: string, help: string) => {
         onItemSelected(id, help);
@@ -77,6 +82,14 @@ const BoardItem: FunctionComponent<Props> = ({
                             <TouchAppIcon />
                         </IconButton>
                     )}
+                    {fiftyFiftyHints.length !== 0 &&
+                        selectedCountryCode === item.code && (
+                            <IconButton
+                                onClick={() => selectItem(item.code, 'hint')}
+                            >
+                                <EmojiObjectsIcon />
+                            </IconButton>
+                        )}
                 </BoardItemElement>
             )}
         </Draggable>
