@@ -71,7 +71,7 @@ const BoardItem: FunctionComponent<Props> = ({
                             onClick={() => selectItem(item.code, 'replace')}
                             disabled={isRefreshButtonDisabled}
                         >
-                            <AutorenewIcon />
+                            <AutorenewIcon style={{ fontSize: 'medium' }} />
                         </IconButton>
                     )}
                     {isFiftyFiftyHelpEnabled && (
@@ -79,7 +79,7 @@ const BoardItem: FunctionComponent<Props> = ({
                             onClick={() => selectItem(item.code, 'fifty-fifty')}
                             disabled={isFiftyFiftyButtonDisabled}
                         >
-                            <TouchAppIcon />
+                            <TouchAppIcon style={{ fontSize: 'medium' }} />
                         </IconButton>
                     )}
                     {fiftyFiftyHints.length !== 0 &&
@@ -87,7 +87,9 @@ const BoardItem: FunctionComponent<Props> = ({
                             <IconButton
                                 onClick={() => selectItem(item.code, 'hint')}
                             >
-                                <EmojiObjectsIcon />
+                                <EmojiObjectsIcon
+                                    style={{ fontSize: 'medium' }}
+                                />
                             </IconButton>
                         )}
                 </BoardItemElement>
