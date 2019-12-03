@@ -71,7 +71,7 @@ const BoardItem: FunctionComponent<Props> = ({
                     <Typography style={{ display: 'inline-block' }}>
                         {item.emoji} {item.name}
                     </Typography>
-                    {isReplaceCountryHelpEnabled && (
+                    {isReplaceCountryHelpEnabled && !isRefreshButtonDisabled && (
                         <IconButton
                             onClick={() => selectItem(item.code, 'replace')}
                             disabled={isRefreshButtonDisabled}
@@ -81,10 +81,12 @@ const BoardItem: FunctionComponent<Props> = ({
                     )}
                     {replacedCountry && newReplacedCountryCode === item.code && (
                         <Tooltip title={replacedCountry} placement="top">
-                            <HistoryIcon style={{ fontSize: 'medium' }} />
+                            <IconButton>
+                                <HistoryIcon style={{ fontSize: 'medium' }} />
+                            </IconButton>
                         </Tooltip>
                     )}
-                    {isFiftyFiftyHelpEnabled && (
+                    {isFiftyFiftyHelpEnabled && !isFiftyFiftyButtonDisabled && (
                         <IconButton
                             onClick={() => selectItem(item.code, 'fifty-fifty')}
                             disabled={isFiftyFiftyButtonDisabled}
