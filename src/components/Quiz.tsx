@@ -15,6 +15,7 @@ import { getFiftyFiftyHelp } from '../services/getFiftyFiftyHelp';
 import AutorenewIcon from '@material-ui/icons/Autorenew';
 import TouchAppIcon from '@material-ui/icons/TouchAppOutlined';
 import PossibleContinentsDialog from './PossibleContinentsDialog';
+import { CountryEntity } from '../interfaces/country.interface';
 
 interface Props {
     continents: ContinentEntity[];
@@ -44,6 +45,7 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
         selectedFiftyFiftyCountryCode,
         setSelectedFiftyFiftyCountryCode,
     ] = React.useState();
+    const [replacedCountryCode, setReplacedCountryCode] = React.useState();
 
     useEffect(() => {
         if (!data || !data.countries) {
@@ -96,14 +98,23 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
     const onItemSelected = (id: string, help: string) => {
         switch (help) {
             case 'replace':
-                setRandomCountries(
-                    updateSelectedCountry(
-                        data.countries,
-                        randomCountries,
-                        id,
-                        1,
-                    ),
+                const newRandomCountries: CountryEntity[] = updateSelectedCountry(
+                    data.countries,
+                    randomCountries,
+                    id,
+                    1,
                 );
+
+                const newRandomCountryCode: string = newRandomCountries
+                    .filter(
+                        (country: CountryEntity) =>
+                            !randomCountries.includes(country),
+                    )
+                    .map((country: CountryEntity) => country.code)
+                    .join();
+
+                setReplacedCountryCode(newRandomCountryCode);
+                setRandomCountries(newRandomCountries);
                 setBoardRefreshButtonsDisabled(true);
                 break;
 
@@ -191,6 +202,7 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
                 isBoardFiftyFiftyButtonDisabled={boardFiftyFiftyButtonsDisabled}
                 fiftyFiftyHints={possibleContinents}
                 selectedCountryCode={selectedFiftyFiftyCountryCode}
+                replacedCountryCode={replacedCountryCode}
             />
 
             {results && (

@@ -18,6 +18,7 @@ interface Props {
     isFiftyFiftyButtonDisabled: boolean;
     fiftyFiftyHints: (string | null)[];
     selectedCountryCode: string;
+    replacedCountryCode: string;
 }
 
 interface StyleProps {
@@ -29,6 +30,10 @@ const BoardItemElement = styled.div<StyleProps>`
     background-color: ${props => (props.isDragging ? '#d3e4ee' : '#fff')};
     border-radius: 4px;
     transition: background-color 0.25s ease-out;
+    border: ${props =>
+        props.countryCode === props.replacedCountryCode
+            ? '2px solid yellow'
+            : null}
 
     &:hover {
         background-color: #f7fafc;
@@ -49,6 +54,7 @@ const BoardItem: FunctionComponent<Props> = ({
     isFiftyFiftyButtonDisabled,
     fiftyFiftyHints,
     selectedCountryCode,
+    replacedCountryCode,
 }) => {
     const selectItem = (id: string, help: string) => {
         onItemSelected(id, help);
@@ -62,6 +68,8 @@ const BoardItem: FunctionComponent<Props> = ({
                     {...provided.dragHandleProps}
                     ref={provided.innerRef}
                     isDragging={snapshot.isDragging}
+                    countryCode={item.code}
+                    replacedCountryCode={replacedCountryCode}
                 >
                     <Typography style={{ display: 'inline-block' }}>
                         {item.emoji} {item.name}

@@ -18,6 +18,7 @@ interface Props {
     fiftyFiftyHints: (string | null)[];
     selectedCountryCode: string;
     highlightedColumns: { [id: string]: ColumnEntity };
+    replacedCountryCode: string;
 }
 
 interface StyleProps {
@@ -67,6 +68,7 @@ const BoardColumn: FunctionComponent<Props> = ({
     fiftyFiftyHints,
     selectedCountryCode,
     highlightedColumns,
+    replacedCountryCode,
 }) => {
     return (
         <>
@@ -105,6 +107,7 @@ const BoardColumn: FunctionComponent<Props> = ({
                                     }
                                     fiftyFiftyHints={fiftyFiftyHints}
                                     selectedCountryCode={selectedCountryCode}
+                                    replacedCountryCode={replacedCountryCode}
                                 />
                             ))}
                             {provided.placeholder}

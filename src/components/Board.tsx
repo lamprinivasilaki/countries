@@ -21,6 +21,7 @@ interface Props {
     isBoardFiftyFiftyButtonDisabled: boolean;
     fiftyFiftyHints: (string | null)[];
     selectedCountryCode: string;
+    replacedCountryCode: string;
 }
 const BoardElement = styled.div`
     display: flex;
@@ -40,6 +41,7 @@ const Board: FunctionComponent<Props> = ({
     isBoardFiftyFiftyButtonDisabled,
     fiftyFiftyHints,
     selectedCountryCode,
+    replacedCountryCode,
 }) => {
     const [newColumns, setColumns] = useState(columns);
     const [highlightedColumns, highlightColumns] = useState<{
@@ -152,6 +154,7 @@ const Board: FunctionComponent<Props> = ({
                             fiftyFiftyHints={fiftyFiftyHints}
                             selectedCountryCode={selectedCountryCode}
                             highlightedColumns={highlightedColumns}
+                            replacedCountryCode={replacedCountryCode}
                         />
                     );
                 })}
