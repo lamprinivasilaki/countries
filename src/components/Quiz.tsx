@@ -45,7 +45,11 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
         selectedFiftyFiftyCountryCode,
         setSelectedFiftyFiftyCountryCode,
     ] = React.useState();
-    const [replacedCountryCode, setReplacedCountryCode] = React.useState();
+    const [selectedCountryForReplace, setCountryForReplace] = React.useState();
+    const [
+        newReplacedCountryCode,
+        setNewReplacedCountryCode,
+    ] = React.useState();
 
     useEffect(() => {
         if (!data || !data.countries) {
@@ -98,6 +102,14 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
     const onItemSelected = (id: string, help: string) => {
         switch (help) {
             case 'replace':
+                const replacedCountry: CountryEntity = randomCountries.find(
+                    (country: CountryEntity) => country.code === id,
+                );
+                if (!replacedCountry) {
+                    return;
+                }
+
+                setCountryForReplace(replacedCountry.name);
                 const newRandomCountries: CountryEntity[] = updateSelectedCountry(
                     data.countries,
                     randomCountries,
@@ -113,7 +125,7 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
                     .map((country: CountryEntity) => country.code)
                     .join();
 
-                setReplacedCountryCode(newRandomCountryCode);
+                setNewReplacedCountryCode(newRandomCountryCode);
                 setRandomCountries(newRandomCountries);
                 setBoardRefreshButtonsDisabled(true);
                 break;
@@ -202,7 +214,8 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
                 isBoardFiftyFiftyButtonDisabled={boardFiftyFiftyButtonsDisabled}
                 fiftyFiftyHints={possibleContinents}
                 selectedCountryCode={selectedFiftyFiftyCountryCode}
-                replacedCountryCode={replacedCountryCode}
+                replacedCountry={selectedCountryForReplace}
+                newReplacedCountryCode={newReplacedCountryCode}
             />
 
             {results && (

@@ -6,7 +6,8 @@ import IconButton from '@material-ui/core/IconButton';
 import AutorenewIcon from '@material-ui/icons/Autorenew';
 import TouchAppIcon from '@material-ui/icons/TouchAppOutlined';
 import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects';
-import { Typography } from '@material-ui/core';
+import HistoryIcon from '@material-ui/icons/History';
+import { Typography, Tooltip } from '@material-ui/core';
 
 interface Props {
     item: CountryEntity;
@@ -18,7 +19,8 @@ interface Props {
     isFiftyFiftyButtonDisabled: boolean;
     fiftyFiftyHints: (string | null)[];
     selectedCountryCode: string;
-    replacedCountryCode: string;
+    replacedCountry: string;
+    newReplacedCountryCode: string;
 }
 
 interface StyleProps {
@@ -30,10 +32,6 @@ const BoardItemElement = styled.div<StyleProps>`
     background-color: ${props => (props.isDragging ? '#d3e4ee' : '#fff')};
     border-radius: 4px;
     transition: background-color 0.25s ease-out;
-    border: ${props =>
-        props.countryCode === props.replacedCountryCode
-            ? '2px solid yellow'
-            : null}
 
     &:hover {
         background-color: #f7fafc;
@@ -54,7 +52,8 @@ const BoardItem: FunctionComponent<Props> = ({
     isFiftyFiftyButtonDisabled,
     fiftyFiftyHints,
     selectedCountryCode,
-    replacedCountryCode,
+    replacedCountry,
+    newReplacedCountryCode,
 }) => {
     const selectItem = (id: string, help: string) => {
         onItemSelected(id, help);
@@ -68,8 +67,6 @@ const BoardItem: FunctionComponent<Props> = ({
                     {...provided.dragHandleProps}
                     ref={provided.innerRef}
                     isDragging={snapshot.isDragging}
-                    countryCode={item.code}
-                    replacedCountryCode={replacedCountryCode}
                 >
                     <Typography style={{ display: 'inline-block' }}>
                         {item.emoji} {item.name}
@@ -81,6 +78,11 @@ const BoardItem: FunctionComponent<Props> = ({
                         >
                             <AutorenewIcon style={{ fontSize: 'medium' }} />
                         </IconButton>
+                    )}
+                    {replacedCountry && newReplacedCountryCode === item.code && (
+                        <Tooltip title={replacedCountry} placement="top">
+                            <HistoryIcon style={{ fontSize: 'medium' }} />
+                        </Tooltip>
                     )}
                     {isFiftyFiftyHelpEnabled && (
                         <IconButton
