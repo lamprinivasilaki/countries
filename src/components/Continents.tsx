@@ -5,11 +5,11 @@ import { CircularProgress } from '@material-ui/core';
 import Selector from './Selector';
 import Alert from './Alert';
 
-interface PropsType {
+interface Props {
     code: string;
     onCodeSelected: (newCode: string) => void;
 }
-const Continents: FunctionComponent<PropsType> = ({ code, onCodeSelected }) => {
+const Continents: FunctionComponent<Props> = ({ code, onCodeSelected }) => {
     const { loading, error, data } = useQuery(ContinentsQuery);
 
     if (!data) {

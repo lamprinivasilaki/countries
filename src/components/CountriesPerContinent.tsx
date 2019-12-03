@@ -5,13 +5,13 @@ import CountriesPerContinentQuery from '../api/queries/countries_per_continent';
 import Selector from './Selector';
 import Alert from './Alert';
 
-interface PropsType {
+interface Props {
     continentCode: string;
     code: string;
     onCodeSelected: (option: string) => void;
 }
 
-const CountriesPerContinent: FunctionComponent<PropsType> = ({
+const CountriesPerContinent: FunctionComponent<Props> = ({
     continentCode,
     code,
     onCodeSelected,

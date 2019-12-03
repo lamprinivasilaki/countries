@@ -5,7 +5,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { CountryEntity } from '../interfaces/country.interface';
 
-interface PropsType {
+interface Props {
     country: CountryEntity;
     showDetails: boolean;
 }
@@ -19,10 +19,7 @@ const useStyles = makeStyles({
     },
 });
 
-const Details: FunctionComponent<PropsType> = ({
-    country,
-    showDetails,
-}: PropsType) => {
+const Details: FunctionComponent<Props> = ({ country, showDetails }: Props) => {
     const classes = useStyles();
 
     return (

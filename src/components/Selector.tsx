@@ -4,7 +4,7 @@ import { ContinentEntity } from '../interfaces/continent.interface';
 import { CountryEntity } from '../interfaces/country.interface';
 import { makeStyles } from '@material-ui/styles';
 
-interface PropsType {
+interface Props {
     data: (ContinentEntity | CountryEntity)[];
     text: string;
     code: string;
@@ -17,7 +17,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const Selector: FunctionComponent<PropsType> = ({
+const Selector: FunctionComponent<Props> = ({
     data,
     text,
     code,

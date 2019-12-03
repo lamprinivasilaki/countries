@@ -17,7 +17,7 @@ import WarningIcon from '@material-ui/icons/Warning';
 import { makeStyles } from '@material-ui/styles';
 import { AlertPosition } from '../interfaces/alert-position.interface';
 
-interface PropsType {
+interface Props {
     className?: string;
     message: string;
     variant: keyof typeof variantIcon;
@@ -58,7 +58,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const Alert: FunctionComponent<PropsType> = ({
+const Alert: FunctionComponent<Props> = ({
     className,
     message,
     variant,

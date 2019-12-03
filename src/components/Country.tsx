@@ -5,11 +5,11 @@ import Details from './Details';
 import { CircularProgress } from '@material-ui/core';
 import Alert from './Alert';
 
-interface PropsType {
+interface Props {
     code: string;
 }
 
-const Country: FunctionComponent<PropsType> = ({ code }) => {
+const Country: FunctionComponent<Props> = ({ code }) => {
     const { loading, error, data } = useQuery(CountryQuery, {
         variables: { code },
     });
