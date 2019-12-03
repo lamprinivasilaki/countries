@@ -5,12 +5,17 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { client } from './api';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
+
+const theme = createMuiTheme({});
 
 ReactDOM.render(
     <ApolloProvider client={client}>
-        <App />
+        <MuiThemeProvider theme={theme}>
+            <App />
+        </MuiThemeProvider>
     </ApolloProvider>,
-    document.getElementById('root')
+    document.getElementById('root'),
 );
 
 // If you want your app to work offline and load faster, you can change
