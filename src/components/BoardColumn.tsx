@@ -42,7 +42,8 @@ const BoardColumnWrapper = styled.div`
 `;
 
 const BoardColumnTitle = styled.h2`
-    font: 14px sans-serif;
+    font-size: 15px;
+    text-align: center;
     margin-bottom: 12px;
 `;
 
