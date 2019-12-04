@@ -48,14 +48,12 @@ const BoardItemElement = styled.div<StyleProps>`
     border-radius: 4px;
     transition: background-color 0.25s ease-out;
     color: ${theme.palette.text.primary}
+    margin: 4px;
 
     &:hover {
         background-color: #f7fafc;
     }
 
-    & + & {
-        margin-top: 4px;
-    }
 `;
 
 const BoardItem: FunctionComponent<Props> = ({

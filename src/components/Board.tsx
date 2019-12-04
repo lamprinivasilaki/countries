@@ -28,6 +28,8 @@ const BoardElement = styled.div`
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
+    flex-wrap: wrap;
+    margin: -6px;
 `;
 
 const Board: FunctionComponent<Props> = ({
@@ -131,7 +133,7 @@ const Board: FunctionComponent<Props> = ({
     return (
         <BoardElement>
             <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
-                {columnsOrder.map((columnId: string) => {
+                {columnsOrder.map((columnId: string, idx: number) => {
                     const column = newColumns[columnId];
                     const columnItems: CountryEntity[] = column.itemsIds
                         .map((itemId: string) => items[itemId])
@@ -158,6 +160,7 @@ const Board: FunctionComponent<Props> = ({
                             highlightedColumns={highlightedColumns}
                             replacedCountry={replacedCountry}
                             newReplacedCountryCode={newReplacedCountryCode}
+                            row={idx === 0}
                         />
                     );
                 })}
