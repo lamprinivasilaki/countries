@@ -5,9 +5,8 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { client } from './api';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
-
-const theme = createMuiTheme({});
+import { MuiThemeProvider } from '@material-ui/core';
+import theme from './theming/theme';
 
 ReactDOM.render(
     <ApolloProvider client={client}>
