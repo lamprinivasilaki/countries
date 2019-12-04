@@ -13,6 +13,7 @@ import Quiz from './components/Quiz';
 import { useQuery } from '@apollo/react-hooks';
 import ContinentsQuery from './api/queries/continents';
 import Alert from './components/Alert';
+import logo from './assets/logo.svg';
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -48,7 +49,34 @@ const App = () => {
                         style={{ textDecoration: 'none', color: 'white' }}
                         className={classes.title}
                     >
-                        <Typography variant="h6">COUNTRIES</Typography>
+                        <div
+                            style={{
+                                paddingTop: 20,
+                                paddingBottom: 20,
+                                display: 'flex',
+                            }}
+                        >
+                            <img
+                                src={logo}
+                                alt="Countries Quiz"
+                                style={{
+                                    width: 50,
+                                    height: 50,
+                                    alignSelf: 'center',
+                                }}
+                            />
+                            <div
+                                style={{
+                                    flexDirection: 'column',
+                                    paddingLeft: 12,
+                                    fontSize: 25,
+                                }}
+                            >
+                                <span>Countries</span>
+                                <br />
+                                <span>Quiz</span>
+                            </div>
+                        </div>
                     </Link>
 
                     <Link
