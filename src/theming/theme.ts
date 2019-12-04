@@ -34,6 +34,10 @@ const theme = createMuiTheme({
     palette: {
         primary: { main: '#2D3E50' },
         secondary: { main: '#1BBC9B' },
+        text: {
+            primary: '#2D3E50',
+            secondary: '#2D3E50',
+        },
     },
     typography: {
         body1: montserrat,

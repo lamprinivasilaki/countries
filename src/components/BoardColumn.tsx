@@ -5,6 +5,7 @@ import BoardItem from './BoardItem';
 import styled from 'styled-components';
 import { ColumnEntity } from '../interfaces/column.interface';
 import { getBoardBackground } from '../services/getBoardBackground';
+import theme from '../theming/theme';
 
 interface Props {
     key?: string;
@@ -32,9 +33,9 @@ const BoardColumnWrapper = styled.div`
     padding: 8px;
     background-color: #e5eff5;
     border-radius: 4px;
-    border: ${props =>
+    box-shadow: ${props =>
             Object.keys(props.highlightedColumns).includes(props.column.id)
-                ? '3px solid green'
+                ? `0px 0px 0 2px ${theme.palette.secondary.main}`
                 : 'none'}
         & + & {
         margin-left: 12px;
@@ -45,6 +46,7 @@ const BoardColumnTitle = styled.h2`
     font-size: 15px;
     text-align: center;
     margin-bottom: 12px;
+    color: ${theme.palette.text.primary};
 `;
 
 const BoardColumnContent = styled.div<StyleProps>`

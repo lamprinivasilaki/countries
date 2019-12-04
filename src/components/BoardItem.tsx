@@ -8,6 +8,7 @@ import TouchAppIcon from '@material-ui/icons/TouchAppOutlined';
 import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects';
 import HistoryIcon from '@material-ui/icons/History';
 import { Typography, Tooltip } from '@material-ui/core';
+import theme from '../theming/theme';
 
 interface Props {
     item: CountryEntity;
@@ -32,6 +33,7 @@ const BoardItemElement = styled.div<StyleProps>`
     background-color: ${props => (props.isDragging ? '#d3e4ee' : '#fff')};
     border-radius: 4px;
     transition: background-color 0.25s ease-out;
+    color: ${theme.palette.text.primary}
 
     &:hover {
         background-color: #f7fafc;
@@ -68,8 +70,11 @@ const BoardItem: FunctionComponent<Props> = ({
                     ref={provided.innerRef}
                     isDragging={snapshot.isDragging}
                 >
-                    <Typography style={{ display: 'inline-block' }}>
-                        {item.emoji} {item.name}
+                    <Typography style={{ fontSize: 40, textAlign: 'center' }}>
+                        {item.emoji}
+                    </Typography>
+                    <Typography noWrap style={{ textAlign: 'center' }}>
+                        {item.name}
                     </Typography>
                     {isReplaceCountryHelpEnabled && !isRefreshButtonDisabled && (
                         <IconButton

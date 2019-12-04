@@ -180,26 +180,32 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
                 >
                     Check Results
                 </Button>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    style={{ marginTop: 20, marginBottom: 20 }}
-                    onClick={replaceCountryHelp}
-                    disabled={helpReplaceCountry}
-                >
-                    <AutorenewIcon style={{ marginRight: 7 }} />
-                    Replace Country
-                </Button>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    style={{ marginTop: 20, marginBottom: 20 }}
-                    onClick={fiftyFiftyHelp}
-                    disabled={helpFiftyFifty}
-                >
-                    <TouchAppIcon style={{ marginRight: 7 }} />
-                    50 - 50
-                </Button>
+                <div>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        style={{
+                            marginTop: 20,
+                            marginBottom: 20,
+                            marginRight: 20,
+                        }}
+                        onClick={replaceCountryHelp}
+                        disabled={helpReplaceCountry}
+                    >
+                        <AutorenewIcon style={{ marginRight: 7 }} />
+                        Replace Country
+                    </Button>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        style={{ marginTop: 20, marginBottom: 20 }}
+                        onClick={fiftyFiftyHelp}
+                        disabled={helpFiftyFifty}
+                    >
+                        <TouchAppIcon style={{ marginRight: 7 }} />
+                        50 - 50
+                    </Button>
+                </div>
             </Box>
 
             <Board
