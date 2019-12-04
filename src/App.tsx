@@ -23,6 +23,13 @@ const useStyles = makeStyles(() =>
         title: {
             flexGrow: 1,
         },
+        link: {
+            textDecoration: 'none',
+            color: 'white',
+        },
+        logoWrapper: { paddingTop: 20, paddingBottom: 20, display: 'flex' },
+        logo: { width: 50, height: 50, alignSelf: 'center' },
+        logoText: { flexDirection: 'column', paddingLeft: 12, fontSize: 25 },
     }),
 );
 const App = () => {
@@ -46,32 +53,15 @@ const App = () => {
                 <Toolbar>
                     <Link
                         to="/dashboard"
-                        style={{ textDecoration: 'none', color: 'white' }}
-                        className={classes.title}
+                        className={`${classes.title} ${classes.link}`}
                     >
-                        <div
-                            style={{
-                                paddingTop: 20,
-                                paddingBottom: 20,
-                                display: 'flex',
-                            }}
-                        >
+                        <div className={classes.logoWrapper}>
                             <img
                                 src={logo}
                                 alt="Countries Quiz"
-                                style={{
-                                    width: 50,
-                                    height: 50,
-                                    alignSelf: 'center',
-                                }}
+                                className={classes.logo}
                             />
-                            <div
-                                style={{
-                                    flexDirection: 'column',
-                                    paddingLeft: 12,
-                                    fontSize: 25,
-                                }}
-                            >
+                            <div className={classes.logoText}>
                                 <span>Countries</span>
                                 <br />
                                 <span>Quiz</span>
@@ -79,13 +69,7 @@ const App = () => {
                         </div>
                     </Link>
 
-                    <Link
-                        to="/quiz"
-                        style={{
-                            textDecoration: 'none',
-                            color: 'white',
-                        }}
-                    >
+                    <Link to="/quiz" className={classes.link}>
                         <Typography>Quiz</Typography>
                     </Link>
                 </Toolbar>

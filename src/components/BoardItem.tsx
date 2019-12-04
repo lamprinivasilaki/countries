@@ -9,6 +9,7 @@ import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects';
 import HistoryIcon from '@material-ui/icons/History';
 import { Typography, Tooltip } from '@material-ui/core';
 import theme from '../theming/theme';
+import { makeStyles } from '@material-ui/styles';
 
 interface Props {
     item: CountryEntity;
@@ -27,6 +28,19 @@ interface Props {
 interface StyleProps {
     isDragging: boolean;
 }
+
+const useStyles = makeStyles(() => ({
+    flag: {
+        fontSize: 40,
+        textAlign: 'center',
+    },
+    name: {
+        textAlign: 'center',
+    },
+    iconSize: {
+        fontSize: 'medium',
+    },
+}));
 
 const BoardItemElement = styled.div<StyleProps>`
     padding: 8px;
@@ -57,6 +71,7 @@ const BoardItem: FunctionComponent<Props> = ({
     replacedCountry,
     newReplacedCountryCode,
 }) => {
+    const classes = useStyles();
     const selectItem = (id: string, help: string) => {
         onItemSelected(id, help);
     };
@@ -70,10 +85,10 @@ const BoardItem: FunctionComponent<Props> = ({
                     ref={provided.innerRef}
                     isDragging={snapshot.isDragging}
                 >
-                    <Typography style={{ fontSize: 40, textAlign: 'center' }}>
+                    <Typography className={classes.flag}>
                         {item.emoji}
                     </Typography>
-                    <Typography noWrap style={{ textAlign: 'center' }}>
+                    <Typography noWrap className={classes.name}>
                         {item.name}
                     </Typography>
                     {isReplaceCountryHelpEnabled && !isRefreshButtonDisabled && (
@@ -81,13 +96,13 @@ const BoardItem: FunctionComponent<Props> = ({
                             onClick={() => selectItem(item.code, 'replace')}
                             disabled={isRefreshButtonDisabled}
                         >
-                            <AutorenewIcon style={{ fontSize: 'medium' }} />
+                            <AutorenewIcon className={classes.iconSize} />
                         </IconButton>
                     )}
                     {replacedCountry && newReplacedCountryCode === item.code && (
                         <Tooltip title={replacedCountry} placement="top">
                             <IconButton>
-                                <HistoryIcon style={{ fontSize: 'medium' }} />
+                                <HistoryIcon className={classes.iconSize} />
                             </IconButton>
                         </Tooltip>
                     )}
@@ -96,7 +111,7 @@ const BoardItem: FunctionComponent<Props> = ({
                             onClick={() => selectItem(item.code, 'fifty-fifty')}
                             disabled={isFiftyFiftyButtonDisabled}
                         >
-                            <TouchAppIcon style={{ fontSize: 'medium' }} />
+                            <TouchAppIcon className={classes.iconSize} />
                         </IconButton>
                     )}
                     {fiftyFiftyHints.length !== 0 &&
@@ -105,7 +120,7 @@ const BoardItem: FunctionComponent<Props> = ({
                                 onClick={() => selectItem(item.code, 'hint')}
                             >
                                 <EmojiObjectsIcon
-                                    style={{ fontSize: 'medium' }}
+                                    className={classes.iconSize}
                                 />
                             </IconButton>
                         )}

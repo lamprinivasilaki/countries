@@ -16,12 +16,23 @@ import AutorenewIcon from '@material-ui/icons/Autorenew';
 import TouchAppIcon from '@material-ui/icons/TouchAppOutlined';
 import PossibleContinentsDialog from './PossibleContinentsDialog';
 import { CountryEntity } from '../interfaces/country.interface';
+import { makeStyles } from '@material-ui/styles';
 
 interface Props {
     continents: ContinentEntity[];
 }
 
+const useStyles = makeStyles(() => ({
+    container: { marginTop: 30 },
+    button: { marginTop: 20, marginBottom: 20 },
+    helpButton: { marginTop: 20, marginBottom: 20, marginLeft: 20 },
+    icon: {
+        marginRight: 7,
+    },
+}));
+
 const Quiz: FunctionComponent<Props> = ({ continents }) => {
+    const classes = useStyles();
     const { loading, error, data } = useQuery(CountriesQuery);
     const [updatedColumns, setUpdatedColumns] = useState();
     const [randomCountries, setRandomCountries] = useState();
@@ -162,7 +173,7 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
     };
 
     return (
-        <div style={{ marginTop: 30 }}>
+        <div className={classes.container}>
             {dialogState && (
                 <PossibleContinentsDialog
                     continents={possibleContinents}
@@ -175,7 +186,7 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
                 <Button
                     variant="contained"
                     color="primary"
-                    style={{ marginTop: 20, marginBottom: 20 }}
+                    className={classes.button}
                     onClick={handleCheckResults}
                 >
                     Check Results
@@ -184,25 +195,21 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
                     <Button
                         variant="contained"
                         color="primary"
-                        style={{
-                            marginTop: 20,
-                            marginBottom: 20,
-                            marginRight: 20,
-                        }}
+                        className={classes.helpButton}
                         onClick={replaceCountryHelp}
                         disabled={helpReplaceCountry}
                     >
-                        <AutorenewIcon style={{ marginRight: 7 }} />
+                        <AutorenewIcon className={classes.icon} />
                         Replace Country
                     </Button>
                     <Button
                         variant="contained"
                         color="primary"
-                        style={{ marginTop: 20, marginBottom: 20 }}
+                        className={classes.helpButton}
                         onClick={fiftyFiftyHelp}
                         disabled={helpFiftyFifty}
                     >
-                        <TouchAppIcon style={{ marginRight: 7 }} />
+                        <TouchAppIcon className={classes.icon} />
                         50 - 50
                     </Button>
                 </div>
