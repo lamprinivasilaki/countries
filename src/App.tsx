@@ -16,6 +16,7 @@ import ContinentsQuery from './api/queries/continents';
 import Alert from './components/Alert';
 import logo from './assets/logo.svg';
 import Explorer from './components/Explorer';
+import CountriesList from './components/CountriesList';
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -83,6 +84,9 @@ const App = () => {
                         <Link to="/explorer" className={classes.link}>
                             <Typography>Explore</Typography>
                         </Link>
+                        <Link to="/countries" className={classes.link}>
+                            <Typography>Countries</Typography>
+                        </Link>
                         <Link to="/quiz" className={classes.link}>
                             <Typography>Quiz</Typography>
                         </Link>
@@ -92,6 +96,7 @@ const App = () => {
             <Container>
                 <Route path="/dashboard" component={Dashboard} />
                 <Route path="/explorer" component={Explorer} />
+                <Route path="/countries" component={CountriesList} />
                 <Route path="/quiz">
                     <Quiz continents={data.continents}></Quiz>
                 </Route>

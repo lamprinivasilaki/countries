@@ -34,11 +34,11 @@ const Details: FunctionComponent<Props> = ({ country, showDetails }: Props) => {
                         color="textSecondary"
                         component="p"
                     >
-                        <b>{country.name}</b> is a country located in
+                        <b>{country.name}</b> is a country located in{' '}
                         <b>{country.continent.name}</b>.
                         <br />
                         The native name of the country is "
-                        <b>{country.native}</b>" and its currency is
+                        <b>{country.native}</b>" and its currency is{' '}
                         <b>{country.currency}</b>.
                     </Typography>
                 )}

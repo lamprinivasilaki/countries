@@ -38,6 +38,9 @@ const theme = createMuiTheme({
             primary: '#2D3E50',
             secondary: '#2D3E50',
         },
+        background: {
+            default: '#f5f5f5',
+        },
     },
     typography: {
         body1: montserrat,

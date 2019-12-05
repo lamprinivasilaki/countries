@@ -5,12 +5,13 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { client } from './api';
-import { MuiThemeProvider } from '@material-ui/core';
+import { MuiThemeProvider, CssBaseline } from '@material-ui/core';
 import theme from './theming/theme';
-console.log(theme);
+
 ReactDOM.render(
     <ApolloProvider client={client}>
         <MuiThemeProvider theme={theme}>
+            <CssBaseline />
             <App />
         </MuiThemeProvider>
     </ApolloProvider>,
