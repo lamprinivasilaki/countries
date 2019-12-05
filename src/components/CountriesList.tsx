@@ -10,6 +10,7 @@ import {
 import Alert from './Alert';
 import { CountryEntity } from '../interfaces/country.interface';
 import { makeStyles } from '@material-ui/styles';
+import CountriesTable from './CountriesTable';
 
 const useStyles = makeStyles({
     container: {
@@ -44,7 +45,10 @@ const CountriesList: FunctionComponent = () => {
     return (
         <>
             <div className={classes.container}>
-                {data &&
+                {data && (
+                    <CountriesTable countries={data.countries}></CountriesTable>
+                )}
+                {/*{data &&
                     data.countries.map((country: CountryEntity) => (
                         <Card className={classes.card} key={country.code}>
                             <CardContent className={classes.content}>
@@ -60,7 +64,7 @@ const CountriesList: FunctionComponent = () => {
                                 </Typography>
                             </CardContent>
                         </Card>
-                    ))}
+                    ))} */}
             </div>
         </>
     );
