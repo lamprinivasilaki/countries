@@ -35,6 +35,8 @@ const CountriesTable: FunctionComponent<Props> = ({ countries }) => {
                         <TableCell>Flag</TableCell>
                         <TableCell>Country</TableCell>
                         <TableCell>Continent</TableCell>
+                        <TableCell>Currency</TableCell>
+                        <TableCell>Language</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -48,6 +50,16 @@ const CountriesTable: FunctionComponent<Props> = ({ countries }) => {
                             </TableCell>
                             <TableCell component="th" scope="row">
                                 {country.continent.name}
+                            </TableCell>
+                            <TableCell component="th" scope="row">
+                                {country.currency}
+                            </TableCell>
+                            <TableCell component="th" scope="row">
+                                {country.languages.length !== 0
+                                    ? country.languages
+                                          .map(language => language.name)
+                                          .join()
+                                    : null}
                             </TableCell>
                         </TableRow>
                     ))}
