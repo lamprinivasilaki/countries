@@ -6,6 +6,7 @@ import {
     Toolbar,
     Typography,
     CircularProgress,
+    Box,
 } from '@material-ui/core';
 import Dashboard from './components/Dashboard';
 import { makeStyles, createStyles } from '@material-ui/styles';
@@ -14,6 +15,7 @@ import { useQuery } from '@apollo/react-hooks';
 import ContinentsQuery from './api/queries/continents';
 import Alert from './components/Alert';
 import logo from './assets/logo.svg';
+import Explorer from './components/Explorer';
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -21,7 +23,12 @@ const useStyles = makeStyles(() =>
             flexGrow: 1,
         },
         title: {
+            flexGrow: 2,
+        },
+        menu: {
+            display: 'flex',
             flexGrow: 1,
+            justifyContent: 'space-around',
         },
         link: {
             textDecoration: 'none',
@@ -68,14 +75,23 @@ const App = () => {
                             </div>
                         </div>
                     </Link>
-
-                    <Link to="/quiz" className={classes.link}>
-                        <Typography>Quiz</Typography>
-                    </Link>
+                    <Box
+                        display="flex"
+                        flexGrow={1}
+                        justifyContent="space-between"
+                    >
+                        <Link to="/explorer" className={classes.link}>
+                            <Typography>Explore</Typography>
+                        </Link>
+                        <Link to="/quiz" className={classes.link}>
+                            <Typography>Quiz</Typography>
+                        </Link>
+                    </Box>
                 </Toolbar>
             </AppBar>
             <Container>
                 <Route path="/dashboard" component={Dashboard} />
+                <Route path="/explorer" component={Explorer} />
                 <Route path="/quiz">
                     <Quiz continents={data.continents}></Quiz>
                 </Route>
