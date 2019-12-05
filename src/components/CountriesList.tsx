@@ -1,7 +1,7 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import CountriesQuery from '../api/queries/countries';
 import { useQuery } from '@apollo/react-hooks';
-import { CircularProgress } from '@material-ui/core';
+import { CircularProgress, FormControlLabel, Switch } from '@material-ui/core';
 import Alert from './Alert';
 import { CountryEntity } from '../interfaces/country.interface';
 import { makeStyles } from '@material-ui/styles';
@@ -14,11 +14,18 @@ const useStyles = makeStyles({
         flexWrap: 'wrap',
         justifyContent: 'space-between',
     },
+    switch: {
+        display: 'block',
+        width: '100%',
+        marginTop: 30,
+        marginBottom: 30,
+    },
 });
 
 const CountriesList: FunctionComponent = () => {
     const classes = useStyles();
     const { loading, error, data } = useQuery(CountriesQuery);
+    const [isTableViewChecked, setTableView] = useState(true);
 
     if (loading) {
         return <CircularProgress />;
@@ -28,13 +35,28 @@ const CountriesList: FunctionComponent = () => {
         return <Alert variant="error" message={error.message}></Alert>;
     }
 
+    const toggleView = () => {
+        setTableView(!isTableViewChecked);
+    };
+
     return (
         <>
             <div className={classes.container}>
-                {data && (
+                <FormControlLabel
+                    control={
+                        <Switch
+                            checked={isTableViewChecked}
+                            onChange={toggleView}
+                        />
+                    }
+                    label={isTableViewChecked ? 'Table' : 'List'}
+                    className={classes.switch}
+                />
+                {data && isTableViewChecked && (
                     <CountriesTable countries={data.countries}></CountriesTable>
-                )} */}
+                )}
                 {data &&
+                    !isTableViewChecked &&
                     data.countries.map((country: CountryEntity) => (
                         <Details
                             country={country}
