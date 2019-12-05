@@ -27,6 +27,8 @@ interface Props {
 interface StyleProps {
     isDraggingOver: boolean;
     continentCode: string;
+    itemsLength: number;
+    row: boolean;
 }
 
 const BoardColumnWrapper = styled.div`

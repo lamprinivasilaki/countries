@@ -24,6 +24,9 @@ const useStyles = makeStyles({
     content: {
         padding: '30px !important',
     },
+    cardTitle: {
+        marginBottom: 15,
+    },
 });
 
 const CountriesList: FunctionComponent = () => {
@@ -38,7 +41,6 @@ const CountriesList: FunctionComponent = () => {
         return <Alert variant="error" message={error.message}></Alert>;
     }
 
-    console.log('data: ', data);
     return (
         <>
             <div className={classes.container}>
@@ -48,16 +50,11 @@ const CountriesList: FunctionComponent = () => {
                             <CardContent className={classes.content}>
                                 <Typography
                                     variant="h5"
-                                    component="h2"
-                                    style={{ marginBottom: 15 }}
+                                    className={classes.cardTitle}
                                 >
                                     {country.emoji} {country.name}
                                 </Typography>
-                                <Typography
-                                    variant="body2"
-                                    color="textSecondary"
-                                    component="p"
-                                >
+                                <Typography color="textSecondary">
                                     <b>{country.name}</b> is a country located
                                     in <b>{country.continent.name}</b>.
                                 </Typography>
