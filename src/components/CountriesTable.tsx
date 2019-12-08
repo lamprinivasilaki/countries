@@ -10,6 +10,7 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import { CountryEntity } from '../interfaces/country.interface';
+import theme from '../theming/theme';
 
 interface Props {
     countries: CountryEntity[];
@@ -22,6 +23,12 @@ const useStyles = makeStyles({
     },
     table: {
         minWidth: 650,
+    },
+    header: {
+        backgroundColor: theme.palette.primary.main,
+    },
+    headerText: {
+        color: '#fff',
     },
 });
 
@@ -44,13 +51,23 @@ const CountriesTable: FunctionComponent<Props> = ({ countries }) => {
     return (
         <Paper className={classes.root}>
             <Table className={classes.table}>
-                <TableHead>
+                <TableHead className={classes.header}>
                     <TableRow>
-                        <TableCell>Flag</TableCell>
-                        <TableCell>Country</TableCell>
-                        <TableCell>Continent</TableCell>
-                        <TableCell>Currency</TableCell>
-                        <TableCell>Language</TableCell>
+                        <TableCell className={classes.headerText}>
+                            Flag
+                        </TableCell>
+                        <TableCell className={classes.headerText}>
+                            Country
+                        </TableCell>
+                        <TableCell className={classes.headerText}>
+                            Continent
+                        </TableCell>
+                        <TableCell className={classes.headerText}>
+                            Currency
+                        </TableCell>
+                        <TableCell className={classes.headerText}>
+                            Language
+                        </TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
