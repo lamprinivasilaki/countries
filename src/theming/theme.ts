@@ -31,6 +31,22 @@ const montserrat = {
 };
 
 const theme = createMuiTheme({
+    overrides: {
+        MuiTableSortLabel: {
+            root: {
+                color: '#fff',
+                '&:hover': {
+                    color: '#fff',
+                },
+                '&$active': {
+                    color: '#fff',
+                },
+            },
+            icon: {
+                color: '#fff !important',
+            },
+        },
+    },
     palette: {
         primary: { main: '#2D3E50' },
         secondary: { main: '#1BBC9B' },
