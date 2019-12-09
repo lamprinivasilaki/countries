@@ -16,7 +16,7 @@ import ContinentsQuery from './api/queries/continents';
 import Alert from './components/Alert';
 import logo from './assets/logo.svg';
 import Explorer from './components/Explorer';
-import CountriesList from './components/CountriesList';
+import Countries from './components/Countries';
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -96,7 +96,7 @@ const App = () => {
             <Container>
                 <Route path="/dashboard" component={Dashboard} />
                 <Route path="/explorer" component={Explorer} />
-                <Route path="/countries" component={CountriesList} />
+                <Route path="/countries" component={Countries} />
                 <Route path="/quiz">
                     <Quiz continents={data.continents}></Quiz>
                 </Route>
