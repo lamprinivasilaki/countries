@@ -16,6 +16,7 @@ import { HeadCell } from '../interfaces/head-cell.interface';
 import { SortOrder } from '../types/sort-order.type';
 import { sortTable, getSorting } from '../services/sortTable';
 import { getCountriesTableHeaders } from '../services/getCountriesTableHeaders';
+import TextWithTooltip from './TextWithTooltip';
 
 interface Props {
     countries: CountryEntity[];
@@ -113,30 +114,37 @@ const CountriesTable: FunctionComponent<Props> = ({ countries }) => {
                                     </span>
                                 </TableCell>
                                 <TableCell component="th" scope="row">
-                                    <span className={classes.contentCell}>
-                                        {country.name}
-                                    </span>
+                                    <TextWithTooltip
+                                        text={country.name}
+                                        width="150px"
+                                    />
                                 </TableCell>
                                 <TableCell component="th" scope="row">
-                                    <span className={classes.contentCell}>
-                                        {country.continent.name}
-                                    </span>
+                                    <TextWithTooltip
+                                        text={country.continent.name}
+                                        width="150px"
+                                    />
                                 </TableCell>
                                 <TableCell component="th" scope="row">
-                                    <span className={classes.contentCell}>
-                                        {country.currency}
-                                    </span>
+                                    <TextWithTooltip
+                                        text={country.currency}
+                                        width="150px"
+                                    />
                                 </TableCell>
                                 <TableCell component="th" scope="row">
-                                    <span className={classes.contentCell}>
-                                        {country.languages.length !== 0
-                                            ? country.languages
-                                                  .map(
-                                                      language => language.name,
-                                                  )
-                                                  .join()
-                                            : null}
-                                    </span>
+                                    <TextWithTooltip
+                                        text={
+                                            country.languages.length !== 0
+                                                ? country.languages
+                                                      .map(
+                                                          language =>
+                                                              language.name,
+                                                      )
+                                                      .join()
+                                                : ' '
+                                        }
+                                        width="150px"
+                                    />
                                 </TableCell>
                             </TableRow>
                         ))}
