@@ -1,12 +1,15 @@
 import React, { FunctionComponent, useState } from 'react';
 import CountriesQuery from '../api/queries/countries';
 import { useQuery } from '@apollo/react-hooks';
-import { CircularProgress, FormControlLabel, Switch } from '@material-ui/core';
+import { CircularProgress, Grid } from '@material-ui/core';
 import Alert from './Alert';
 import { CountryEntity } from '../interfaces/country.interface';
 import { makeStyles } from '@material-ui/styles';
 import CountriesTable from './CountriesTable';
 import Details from './Details';
+import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
+import TableChartOutlinedIcon from '@material-ui/icons/TableChartOutlined';
+import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
 
 const useStyles = makeStyles({
     container: {
@@ -14,18 +17,16 @@ const useStyles = makeStyles({
         flexWrap: 'wrap',
         justifyContent: 'space-between',
     },
-    switch: {
-        display: 'block',
-        width: '100%',
-        marginTop: 30,
-        marginBottom: 30,
+    viewToggler: {
+        marginTop: 20,
+        marginBottom: 10,
     },
 });
 
 const CountriesList: FunctionComponent = () => {
     const classes = useStyles();
     const { loading, error, data } = useQuery(CountriesQuery);
-    const [isTableViewChecked, setTableView] = useState(true);
+    const [view, setView] = useState('table');
 
     if (loading) {
         return <CircularProgress />;
@@ -35,28 +36,38 @@ const CountriesList: FunctionComponent = () => {
         return <Alert variant="error" message={error.message}></Alert>;
     }
 
-    const toggleView = () => {
-        setTableView(!isTableViewChecked);
+    const onViewToggled = (
+        event: React.MouseEvent<HTMLElement>,
+        view: string,
+    ): void => {
+        setView(view);
     };
 
     return (
         <>
             <div className={classes.container}>
-                <FormControlLabel
-                    control={
-                        <Switch
-                            checked={isTableViewChecked}
-                            onChange={toggleView}
-                        />
-                    }
-                    label={isTableViewChecked ? 'Table' : 'List'}
-                    className={classes.switch}
-                />
-                {data && isTableViewChecked && (
+                <Grid
+                    container
+                    direction="row"
+                    justify="flex-end"
+                    alignItems="center"
+                    className={classes.viewToggler}
+                >
+                    <ToggleButtonGroup exclusive onChange={onViewToggled}>
+                        <ToggleButton key={1} value="table">
+                            <TableChartOutlinedIcon />
+                        </ToggleButton>
+                        <ToggleButton key={2} value="list">
+                            <FormatListBulletedIcon />
+                        </ToggleButton>
+                    </ToggleButtonGroup>
+                </Grid>
+
+                {data && view === 'table' && (
                     <CountriesTable countries={data.countries}></CountriesTable>
                 )}
                 {data &&
-                    !isTableViewChecked &&
+                    view === 'list' &&
                     data.countries.map((country: CountryEntity) => (
                         <Details
                             country={country}
