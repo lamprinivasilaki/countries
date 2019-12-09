@@ -32,6 +32,13 @@ const useStyles = makeStyles({
     header: {
         backgroundColor: theme.palette.primary.main,
     },
+    contentCell: {
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        width: '150px',
+        display: 'block',
+    },
 });
 
 const headCells: HeadCell[] = getCountriesTableHeaders();
@@ -98,23 +105,38 @@ const CountriesTable: FunctionComponent<Props> = ({ countries }) => {
                         .map((country: CountryEntity, index: number) => (
                             <TableRow key={country.name}>
                                 <TableCell component="th" scope="row">
-                                    {country.emoji}
+                                    <span
+                                        className={classes.contentCell}
+                                        style={{ width: 50 }}
+                                    >
+                                        {country.emoji}
+                                    </span>
                                 </TableCell>
                                 <TableCell component="th" scope="row">
-                                    {country.name}
+                                    <span className={classes.contentCell}>
+                                        {country.name}
+                                    </span>
                                 </TableCell>
                                 <TableCell component="th" scope="row">
-                                    {country.continent.name}
+                                    <span className={classes.contentCell}>
+                                        {country.continent.name}
+                                    </span>
                                 </TableCell>
                                 <TableCell component="th" scope="row">
-                                    {country.currency}
+                                    <span className={classes.contentCell}>
+                                        {country.currency}
+                                    </span>
                                 </TableCell>
                                 <TableCell component="th" scope="row">
-                                    {country.languages.length !== 0
-                                        ? country.languages
-                                              .map(language => language.name)
-                                              .join()
-                                        : null}
+                                    <span className={classes.contentCell}>
+                                        {country.languages.length !== 0
+                                            ? country.languages
+                                                  .map(
+                                                      language => language.name,
+                                                  )
+                                                  .join()
+                                            : null}
+                                    </span>
                                 </TableCell>
                             </TableRow>
                         ))}
