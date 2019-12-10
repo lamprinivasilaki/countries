@@ -17,6 +17,7 @@ import { SortOrder } from '../types/sort-order.type';
 import { sortTable, getSorting } from '../services/sortTable';
 import { getCountriesTableHeaders } from '../services/getCountriesTableHeaders';
 import TextWithTooltip from './TextWithTooltip';
+import { LanguageEntity } from '../interfaces/language.interface';
 
 interface Props {
     countries: CountryEntity[];
@@ -32,13 +33,6 @@ const useStyles = makeStyles({
     },
     header: {
         backgroundColor: theme.palette.primary.main,
-    },
-    contentCell: {
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        width: '150px',
-        display: 'block',
     },
 });
 
@@ -106,10 +100,7 @@ const CountriesTable: FunctionComponent<Props> = ({ countries }) => {
                         .map((country: CountryEntity, index: number) => (
                             <TableRow key={country.name}>
                                 <TableCell component="th" scope="row">
-                                    <span
-                                        className={classes.contentCell}
-                                        style={{ width: 50 }}
-                                    >
+                                    <span style={{ width: 50 }}>
                                         {country.emoji}
                                     </span>
                                 </TableCell>
@@ -137,13 +128,14 @@ const CountriesTable: FunctionComponent<Props> = ({ countries }) => {
                                             country.languages.length !== 0
                                                 ? country.languages
                                                       .map(
-                                                          language =>
-                                                              language.name,
+                                                          (
+                                                              language: LanguageEntity,
+                                                          ) => language.name,
                                                       )
                                                       .join()
                                                 : ' '
                                         }
-                                        width="150px"
+                                        width="200px"
                                     />
                                 </TableCell>
                             </TableRow>
