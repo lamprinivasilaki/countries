@@ -1,5 +1,10 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
+import {
+    BrowserRouter as Router,
+    Route,
+    NavLink,
+    Link,
+} from 'react-router-dom';
 import {
     Container,
     AppBar,
@@ -65,7 +70,7 @@ const App = () => {
         <Router>
             <AppBar position="sticky" className={classes.root}>
                 <Toolbar>
-                    <NavLink
+                    <Link
                         to="/dashboard"
                         className={`${classes.title} ${classes.link}`}
                     >
@@ -81,7 +86,7 @@ const App = () => {
                                 <span>Quiz</span>
                             </div>
                         </div>
-                    </NavLink>
+                    </Link>
                     <Box display="flex" flexGrow={1} justifyContent="flex-end">
                         <NavLink to="/explorer" className={classes.link}>
                             <Typography>Explore</Typography>
