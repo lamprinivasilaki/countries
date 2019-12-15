@@ -41,7 +41,7 @@ const headCells: HeadCell[] = getCountriesTableHeaders();
 const CountriesTable: FunctionComponent<Props> = ({ countries }) => {
     const classes = useStyles();
     const [page, setPage] = useState(0);
-    const [countriesPerPage, setCountriesPerPage] = useState(5);
+    const [countriesPerPage, setCountriesPerPage] = useState(10);
     const [order, setOrder] = React.useState<SortOrder>('asc');
     const [orderBy, setOrderBy] = React.useState('name');
 
@@ -118,7 +118,10 @@ const CountriesTable: FunctionComponent<Props> = ({ countries }) => {
                                 </TableCell>
                                 <TableCell component="th" scope="row">
                                     <TextWithTooltip
-                                        text={country.currency}
+                                        text={country.currency.replace(
+                                            ',',
+                                            ', ',
+                                        )}
                                         width="150px"
                                     />
                                 </TableCell>
@@ -132,7 +135,7 @@ const CountriesTable: FunctionComponent<Props> = ({ countries }) => {
                                                               language: LanguageEntity,
                                                           ) => language.name,
                                                       )
-                                                      .join()
+                                                      .join(', ')
                                                 : ' '
                                         }
                                         width="200px"
