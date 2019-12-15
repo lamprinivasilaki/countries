@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react';
-import { Box, Link, Typography } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import theme from '../theming/theme';
 import { makeStyles } from '@material-ui/styles';
 import SearchIcon from '@material-ui/icons/Search';
@@ -10,7 +11,6 @@ const useStyles = makeStyles(() => ({
     container: {
         display: 'flex',
         padding: '20px 0',
-        minHeight: '100vh',
     },
     section: {
         backgroundColor: theme.palette.secondary.main,
@@ -48,7 +48,7 @@ const Dashboard: FunctionComponent = () => {
     const classes = useStyles();
     return (
         <Box className={classes.container}>
-            <Link className={classes.link} href="/explorer">
+            <Link className={classes.link} to="/explorer">
                 <Box className={classes.section}>
                     <SearchIcon className={classes.icon}></SearchIcon>
                     <Typography variant="h4">Explore</Typography>
@@ -59,7 +59,7 @@ const Dashboard: FunctionComponent = () => {
                     </Typography>
                 </Box>
             </Link>
-            <Link className={classes.link} href="/countries">
+            <Link className={classes.link} to="/countries">
                 <Box className={classes.section}>
                     <FormatListBulletedIcon
                         className={classes.icon}
@@ -73,7 +73,7 @@ const Dashboard: FunctionComponent = () => {
                     </Typography>
                 </Box>
             </Link>
-            <Link className={classes.link} href="/quiz">
+            <Link className={classes.link} to="/quiz">
                 <Box className={classes.section}>
                     <SportsEsportsIcon
                         className={classes.icon}
