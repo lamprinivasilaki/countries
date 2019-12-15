@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
 import {
     Container,
     AppBar,
@@ -17,6 +17,7 @@ import Alert from './components/Alert';
 import logo from './assets/logo.svg';
 import Explorer from './components/Explorer';
 import Countries from './components/Countries';
+import theme from './theming/theme';
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -34,6 +35,11 @@ const useStyles = makeStyles(() =>
         link: {
             textDecoration: 'none',
             color: 'white',
+            marginLeft: 15,
+
+            '&.active': {
+                color: theme.palette.secondary.main,
+            },
         },
         logoWrapper: { paddingTop: 20, paddingBottom: 20, display: 'flex' },
         logo: { width: 50, height: 50, alignSelf: 'center' },
@@ -59,7 +65,7 @@ const App = () => {
         <Router>
             <AppBar position="static" className={classes.root}>
                 <Toolbar>
-                    <Link
+                    <NavLink
                         to="/dashboard"
                         className={`${classes.title} ${classes.link}`}
                     >
@@ -75,21 +81,17 @@ const App = () => {
                                 <span>Quiz</span>
                             </div>
                         </div>
-                    </Link>
-                    <Box
-                        display="flex"
-                        flexGrow={1}
-                        justifyContent="space-between"
-                    >
-                        <Link to="/explorer" className={classes.link}>
+                    </NavLink>
+                    <Box display="flex" flexGrow={1} justifyContent="flex-end">
+                        <NavLink to="/explorer" className={classes.link}>
                             <Typography>Explore</Typography>
-                        </Link>
-                        <Link to="/countries" className={classes.link}>
+                        </NavLink>
+                        <NavLink to="/countries" className={classes.link}>
                             <Typography>Countries</Typography>
-                        </Link>
-                        <Link to="/quiz" className={classes.link}>
+                        </NavLink>
+                        <NavLink to="/quiz" className={classes.link}>
                             <Typography>Quiz</Typography>
-                        </Link>
+                        </NavLink>
                     </Box>
                 </Toolbar>
             </AppBar>
