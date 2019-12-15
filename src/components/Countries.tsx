@@ -53,10 +53,18 @@ const Countries: FunctionComponent = () => {
                     className={classes.viewToggler}
                 >
                     <ToggleButtonGroup exclusive onChange={onViewToggled}>
-                        <ToggleButton key="table" value="table">
+                        <ToggleButton
+                            key="table"
+                            value="table"
+                            selected={view === 'table'}
+                        >
                             <TableChartOutlinedIcon />
                         </ToggleButton>
-                        <ToggleButton key="list" value="list">
+                        <ToggleButton
+                            key="list"
+                            value="list"
+                            selected={view === 'list'}
+                        >
                             <FormatListBulletedIcon />
                         </ToggleButton>
                     </ToggleButtonGroup>
