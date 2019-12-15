@@ -46,6 +46,13 @@ const theme = createMuiTheme({
                 color: '#fff !important',
             },
         },
+        MuiToggleButton: {
+            root: {
+                '&.Mui-selected': {
+                    color: '#1BBC9B',
+                },
+            },
+        },
     },
     palette: {
         primary: { main: '#2D3E50' },
@@ -69,6 +76,6 @@ const theme = createMuiTheme({
         h6: merriweather,
         button: merriweather,
     },
-});
+} as any);
 
 export default theme;
