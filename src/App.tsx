@@ -63,7 +63,7 @@ const App = () => {
     }
     return (
         <Router>
-            <AppBar position="static" className={classes.root}>
+            <AppBar position="sticky" className={classes.root}>
                 <Toolbar>
                     <NavLink
                         to="/dashboard"
