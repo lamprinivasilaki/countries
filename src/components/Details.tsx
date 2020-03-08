@@ -4,6 +4,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { CountryEntity } from '../interfaces/country.interface';
+import { StateEntity } from '../interfaces/state.interface';
 
 interface Props {
     country: CountryEntity;
@@ -35,7 +36,22 @@ const Details: FunctionComponent<Props> = ({ country, showDetails }: Props) => {
                         component="p"
                     >
                         <b>{country.name}</b> is a country located in{' '}
-                        <b>{country.continent.name}</b>.
+                        <b>{country.continent.name}</b>
+                        {country.states.length !== 0 && (
+                            <>
+                                {' '}
+                                and contains the following states:{' '}
+                                <b>
+                                    {country.states.map(
+                                        (state: StateEntity, index: number) =>
+                                            index !== country.states.length - 1
+                                                ? `${state.name}, `
+                                                : `${state.name}`,
+                                    )}
+                                </b>
+                            </>
+                        )}
+                        .
                         <br />
                         The native name of the country is "
                         <b>{country.native}</b>" and its currency is{' '}
