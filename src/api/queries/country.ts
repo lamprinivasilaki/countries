@@ -7,6 +7,10 @@ const Country = gql`
             native
             emoji
             currency
+            states {
+                code
+                name
+            }
             continent {
                 code
                 name
