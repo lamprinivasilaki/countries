@@ -53,6 +53,11 @@ const theme = createMuiTheme({
                 },
             },
         },
+        MuiFormControl: {
+            root: {
+                width: 300,
+            },
+        },
     },
     palette: {
         primary: { main: '#2D3E50' },
