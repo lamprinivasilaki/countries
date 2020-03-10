@@ -101,6 +101,7 @@ const App = () => {
                 </Toolbar>
             </AppBar>
             <Container>
+                <Route path="/" component={Dashboard} exact={true} />
                 <Route path="/dashboard" component={Dashboard} />
                 <Route path="/explorer" component={Explorer} />
                 <Route path="/countries" component={Countries} />
