@@ -10,11 +10,7 @@ const CountriesList: FunctionComponent<Props> = ({ countries }) => {
     return (
         <>
             {countries.map((country: CountryEntity) => (
-                <Details
-                    country={country}
-                    showDetails={true}
-                    key={country.name}
-                ></Details>
+                <Details country={country} showDetails={true}></Details>
             ))}
         </>
     );

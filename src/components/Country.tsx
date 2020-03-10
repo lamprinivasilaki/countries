@@ -26,7 +26,13 @@ const Country: FunctionComponent<Props> = ({ code }) => {
         return <Alert variant="error" message={error.message}></Alert>;
     }
 
-    return <Details country={data.country} showDetails={true}></Details>;
+    return (
+        <Details
+            country={data.country}
+            showDetails={true}
+            showStates={true}
+        ></Details>
+    );
 };
 
 export default memo(Country);

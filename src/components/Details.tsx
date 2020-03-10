@@ -9,6 +9,7 @@ import { StateEntity } from '../interfaces/state.interface';
 interface Props {
     country: CountryEntity;
     showDetails: boolean;
+    showStates?: boolean;
 }
 
 const useStyles = makeStyles({
@@ -20,7 +21,11 @@ const useStyles = makeStyles({
     },
 });
 
-const Details: FunctionComponent<Props> = ({ country, showDetails }: Props) => {
+const Details: FunctionComponent<Props> = ({
+    country,
+    showDetails,
+    showStates = false,
+}: Props) => {
     const classes = useStyles();
 
     return (
@@ -37,7 +42,7 @@ const Details: FunctionComponent<Props> = ({ country, showDetails }: Props) => {
                     >
                         <b>{country.name}</b> is a country located in{' '}
                         <b>{country.continent.name}</b>
-                        {country.states.length !== 0 && (
+                        {country.states.length !== 0 && showStates && (
                             <>
                                 {' '}
                                 and contains the following states:{' '}
