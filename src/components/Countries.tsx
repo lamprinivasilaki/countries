@@ -9,6 +9,7 @@ import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 import TableChartOutlinedIcon from '@material-ui/icons/TableChartOutlined';
 import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
 import CountriesList from './CountriesList';
+import Search from './Search';
 
 const useStyles = makeStyles({
     container: {
@@ -48,10 +49,11 @@ const Countries: FunctionComponent = () => {
                 <Grid
                     container
                     direction="row"
-                    justify="flex-end"
+                    justify="space-between"
                     alignItems="center"
                     className={classes.viewToggler}
                 >
+                    <Search countries={data.countries}></Search>
                     <ToggleButtonGroup exclusive onChange={onViewToggled}>
                         <ToggleButton
                             key="table"
