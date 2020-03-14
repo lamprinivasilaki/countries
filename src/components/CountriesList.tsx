@@ -4,14 +4,28 @@ import Details from './Details';
 
 interface Props {
     countries: CountryEntity[];
+    selectedCountry: string | undefined;
 }
 
-const CountriesList: FunctionComponent<Props> = ({ countries }) => {
+const CountriesList: FunctionComponent<Props> = ({
+    countries,
+    selectedCountry,
+}) => {
     return (
         <>
-            {countries.map((country: CountryEntity) => (
-                <Details country={country} showDetails={true}></Details>
-            ))}
+            {!selectedCountry &&
+                countries.map((country: CountryEntity) => (
+                    <Details country={country} showDetails={true}></Details>
+                ))}
+            {selectedCountry &&
+                countries
+                    .filter(
+                        (country: CountryEntity) =>
+                            country.name === selectedCountry,
+                    )
+                    .map((country: CountryEntity) => (
+                        <Details country={country} showDetails={true}></Details>
+                    ))}
         </>
     );
 };

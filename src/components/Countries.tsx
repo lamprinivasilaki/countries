@@ -87,7 +87,10 @@ const Countries: FunctionComponent = () => {
                     ></CountriesTable>
                 )}
                 {data && view === 'list' && (
-                    <CountriesList countries={data.countries}></CountriesList>
+                    <CountriesList
+                        countries={data.countries}
+                        selectedCountry={selectedCountry}
+                    ></CountriesList>
                 )}
             </div>
         </>
