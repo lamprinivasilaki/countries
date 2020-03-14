@@ -6,7 +6,7 @@ import Selector from './Selector';
 import Alert from './Alert';
 
 interface Props {
-    code: string;
+    code: string | undefined;
     onCodeSelected: (newCode: string) => void;
 }
 const Continents: FunctionComponent<Props> = ({ code, onCodeSelected }) => {

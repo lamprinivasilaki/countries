@@ -14,8 +14,8 @@ const useStyles = makeStyles(() => ({
 
 const Explorer: FunctionComponent = () => {
     const classes = useStyles();
-    const [continentCode, setContinentCode] = useState();
-    const [countryCode, setCountryCode] = useState();
+    const [continentCode, setContinentCode] = useState<string>();
+    const [countryCode, setCountryCode] = useState<string>();
 
     const onContinentSelected = (option: string) => {
         setContinentCode(option);

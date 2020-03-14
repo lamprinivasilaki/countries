@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/styles';
 interface Props {
     data: (ContinentEntity | CountryEntity)[];
     text: string;
-    code: string;
+    code: string | undefined;
     onCodeSelected: (newCode: string) => void;
 }
 

@@ -7,7 +7,7 @@ import Alert from './Alert';
 
 interface Props {
     continentCode: string;
-    code: string;
+    code: string | undefined;
     onCodeSelected: (option: string) => void;
 }
 
