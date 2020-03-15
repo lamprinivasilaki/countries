@@ -27,7 +27,7 @@ const Countries: FunctionComponent = () => {
     const classes = useStyles();
     const { loading, error, data } = useQuery(CountriesQuery);
     const [view, setView] = useState('table');
-    const [selectedCountry, setSelectedCountry] = useState<string>();
+    const [inputValue, setInputValue] = useState<string>('');
 
     if (loading) {
         return <CircularProgress />;
@@ -44,8 +44,8 @@ const Countries: FunctionComponent = () => {
         setView(view);
     };
 
-    const onCountrySelected = (countryName: string) => {
-        setSelectedCountry(countryName);
+    const handleInputChange = (input: string) => {
+        setInputValue(input);
     };
 
     return (
@@ -59,8 +59,8 @@ const Countries: FunctionComponent = () => {
                     className={classes.viewToggler}
                 >
                     <Search
-                        countries={data.countries}
-                        onCountrySelected={onCountrySelected}
+                        value={inputValue}
+                        onValueChanged={handleInputChange}
                     ></Search>
                     <ToggleButtonGroup exclusive onChange={onViewToggled}>
                         <ToggleButton

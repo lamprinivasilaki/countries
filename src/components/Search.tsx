@@ -4,24 +4,17 @@ import { TextField } from '@material-ui/core';
 import { CountryEntity } from '../interfaces/country.interface';
 
 interface Props {
-    countries: CountryEntity[];
-    onCountrySelected: (selectedCountry: string) => void;
+    value: string | undefined;
+    onValueChanged: (input: string) => void;
 }
 
-const Search: FunctionComponent<Props> = ({ countries, onCountrySelected }) => {
+const Search: FunctionComponent<Props> = ({ value, onValueChanged }) => {
     return (
-        <Autocomplete
-            id="search"
-            options={countries}
-            getOptionLabel={country => country.name}
-            onChange={event => onCountrySelected(event.target['innerText'])}
-            renderInput={params => (
-                <TextField
-                    {...params}
-                    label="Search Country"
-                    variant="outlined"
-                />
-            )}
+        <TextField
+            label="Search"
+            variant="standard"
+            value={value}
+            onChange={event => onValueChanged(event.target.value)}
         />
     );
 };
