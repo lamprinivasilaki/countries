@@ -20,8 +20,7 @@ import TextWithTooltip from './TextWithTooltip';
 import { LanguageEntity } from '../interfaces/language.interface';
 
 interface Props {
-    countries: CountryEntity[];
-    selectedCountry: string | undefined;
+    countries: CountryEntity[] | undefined;
 }
 
 const useStyles = makeStyles({
@@ -39,10 +38,7 @@ const useStyles = makeStyles({
 
 const headCells: HeadCell[] = getCountriesTableHeaders();
 
-const CountriesTable: FunctionComponent<Props> = ({
-    countries,
-    selectedCountry,
-}) => {
+const CountriesTable: FunctionComponent<Props> = ({ countries }) => {
     const classes = useStyles();
     const [page, setPage] = useState(0);
     const [countriesPerPage, setCountriesPerPage] = useState(10);
@@ -95,9 +91,9 @@ const CountriesTable: FunctionComponent<Props> = ({
                         ))}
                     </TableRow>
                 </TableHead>
-                {!selectedCountry && (
-                    <TableBody>
-                        {sortTable(countries, getSorting(order, orderBy))
+                <TableBody>
+                    {countries &&
+                        sortTable(countries, getSorting(order, orderBy))
                             .slice(
                                 page * countriesPerPage,
                                 page * countriesPerPage + countriesPerPage,
@@ -149,63 +145,9 @@ const CountriesTable: FunctionComponent<Props> = ({
                                     </TableCell>
                                 </TableRow>
                             ))}
-                    </TableBody>
-                )}
-                {selectedCountry && (
-                    <TableBody>
-                        {countries
-                            .filter(country => country.name === selectedCountry)
-                            .map((country: CountryEntity, index: number) => (
-                                <TableRow key={country.name}>
-                                    <TableCell component="th" scope="row">
-                                        <span style={{ width: 50 }}>
-                                            {country.emoji}
-                                        </span>
-                                    </TableCell>
-                                    <TableCell component="th" scope="row">
-                                        <TextWithTooltip
-                                            text={country.name}
-                                            width="150px"
-                                        />
-                                    </TableCell>
-                                    <TableCell component="th" scope="row">
-                                        <TextWithTooltip
-                                            text={country.continent.name}
-                                            width="150px"
-                                        />
-                                    </TableCell>
-                                    <TableCell component="th" scope="row">
-                                        <TextWithTooltip
-                                            text={country.currency.replace(
-                                                ',',
-                                                ', ',
-                                            )}
-                                            width="150px"
-                                        />
-                                    </TableCell>
-                                    <TableCell component="th" scope="row">
-                                        <TextWithTooltip
-                                            text={
-                                                country.languages.length !== 0
-                                                    ? country.languages
-                                                          .map(
-                                                              (
-                                                                  language: LanguageEntity,
-                                                              ) =>
-                                                                  language.name,
-                                                          )
-                                                          .join(', ')
-                                                    : ' '
-                                            }
-                                            width="200px"
-                                        />
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                    </TableBody>
-                )}
+                </TableBody>
             </Table>
-            {!selectedCountry && (
+            {countries && (
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 25]}
                     component="div"

@@ -132,16 +132,10 @@ const Countries: FunctionComponent = () => {
                 </Grid>
 
                 {data && view === 'table' && (
-                    <CountriesTable
-                        countries={data.countries}
-                        selectedCountry={selectedCountry}
-                    ></CountriesTable>
+                    <CountriesTable countries={countries}></CountriesTable>
                 )}
                 {data && view === 'list' && (
-                    <CountriesList
-                        countries={data.countries}
-                        selectedCountry={selectedCountry}
-                    ></CountriesList>
+                    <CountriesList countries={countries}></CountriesList>
                 )}
             </div>
         </>
