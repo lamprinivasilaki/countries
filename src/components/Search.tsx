@@ -1,7 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Autocomplete } from '@material-ui/lab';
 import { TextField } from '@material-ui/core';
-import { CountryEntity } from '../interfaces/country.interface';
 
 interface Props {
     value: string | undefined;
