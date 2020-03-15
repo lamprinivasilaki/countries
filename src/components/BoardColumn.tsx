@@ -17,10 +17,10 @@ interface Props {
     isFiftyFiftyHelpEnabled: boolean;
     isBoardFiftyFiftyButtonDisabled: boolean;
     fiftyFiftyHints: (string | null)[];
-    selectedCountryCode: string;
+    selectedCountryCode?: string;
     highlightedColumns: { [id: string]: ColumnEntity };
-    replacedCountry: string;
-    newReplacedCountryCode: string;
+    replacedCountry?: string;
+    newReplacedCountryCode?: string;
     row?: boolean;
 }
 

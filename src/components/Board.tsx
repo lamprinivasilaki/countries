@@ -12,7 +12,7 @@ import { ColumnEntity } from '../interfaces/column.interface';
 interface Props {
     columnsOrder: string[];
     columns: { [id: string]: ColumnEntity };
-    items: CountryEntity[];
+    items: { [name: string]: CountryEntity };
     onItemMoved: (updatedColumns: { [id: string]: ColumnEntity }) => void;
     onItemSelected: (id: string, help: string) => void;
     isReplaceCountryHelpEnabled: boolean;
@@ -20,9 +20,9 @@ interface Props {
     isFiftyFiftyHelpEnabled: boolean;
     isBoardFiftyFiftyButtonDisabled: boolean;
     fiftyFiftyHints: (string | null)[];
-    selectedCountryCode: string;
-    replacedCountry: string;
-    newReplacedCountryCode: string;
+    selectedCountryCode?: string;
+    replacedCountry?: string;
+    newReplacedCountryCode?: string;
 }
 const BoardElement = styled.div`
     display: flex;

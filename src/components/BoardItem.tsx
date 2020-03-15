@@ -20,9 +20,9 @@ interface Props {
     isFiftyFiftyHelpEnabled: boolean;
     isFiftyFiftyButtonDisabled: boolean;
     fiftyFiftyHints: (string | null)[];
-    selectedCountryCode: string;
-    replacedCountry: string;
-    newReplacedCountryCode: string;
+    selectedCountryCode?: string;
+    replacedCountry?: string;
+    newReplacedCountryCode?: string;
 }
 
 interface StyleProps {

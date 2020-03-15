@@ -34,10 +34,19 @@ const useStyles = makeStyles(() => ({
 const Quiz: FunctionComponent<Props> = ({ continents }) => {
     const classes = useStyles();
     const { loading, error, data } = useQuery(CountriesQuery);
-    const [updatedColumns, setUpdatedColumns] = useState();
-    const [randomCountries, setRandomCountries] = useState();
-    const [boardData, setBoardData] = useState();
-    const [results, setResults] = useState();
+    const [updatedColumns, setUpdatedColumns] = useState<{
+        [id: string]: ColumnEntity;
+    }>({});
+    const [randomCountries, setRandomCountries] = useState<CountryEntity[]>([]);
+    const [boardData, setBoardData] = useState<{
+        items: { [name: string]: CountryEntity };
+        columns: { [title: string]: ColumnEntity };
+        columnsOrder: string[];
+    }>();
+    const [results, setResults] = useState<{
+        result: boolean;
+        message: string;
+    }>();
     const [helpReplaceCountry, setHelpReplaceCountry] = useState(false);
     const [
         boardRefreshButtonsDisabled,
@@ -51,16 +60,17 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
     const [possibleContinents, setPossibleContinents] = useState<
         (string | null)[]
     >([]);
-    const [dialogState, setDialogState] = React.useState(false);
+    const [dialogState, setDialogState] = useState(false);
     const [
         selectedFiftyFiftyCountryCode,
         setSelectedFiftyFiftyCountryCode,
-    ] = React.useState();
-    const [selectedCountryForReplace, setCountryForReplace] = React.useState();
-    const [
-        newReplacedCountryCode,
-        setNewReplacedCountryCode,
-    ] = React.useState();
+    ] = useState<string>();
+    const [selectedCountryForReplace, setCountryForReplace] = useState<
+        string
+    >();
+    const [newReplacedCountryCode, setNewReplacedCountryCode] = useState<
+        string
+    >();
 
     useEffect(() => {
         if (!data || !data.countries) {
@@ -113,9 +123,10 @@ const Quiz: FunctionComponent<Props> = ({ continents }) => {
     const onItemSelected = (id: string, help: string) => {
         switch (help) {
             case 'replace':
-                const replacedCountry: CountryEntity = randomCountries.find(
+                const replacedCountry = randomCountries.find(
                     (country: CountryEntity) => country.code === id,
                 );
+
                 if (!replacedCountry) {
                     return;
                 }
