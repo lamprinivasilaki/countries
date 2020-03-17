@@ -34,10 +34,8 @@ const useStyles = makeStyles(() => ({
 const Quiz: FunctionComponent<Props> = ({ continents }) => {
     const classes = useStyles();
     const { loading, error, data } = useQuery(CountriesQuery);
-    const [updatedColumns, setUpdatedColumns] = useState<{
-        [id: string]: ColumnEntity;
-    }>({});
-    const [randomCountries, setRandomCountries] = useState<CountryEntity[]>([]);
+    const [updatedColumns, setUpdatedColumns] = useState<any>();
+    const [randomCountries, setRandomCountries] = useState<any>();
     const [boardData, setBoardData] = useState<{
         items: { [name: string]: CountryEntity };
         columns: { [title: string]: ColumnEntity };
